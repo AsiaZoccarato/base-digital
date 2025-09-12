@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <main>
+    <HeroCompact />
+    <ServicesGrid />
+    <LogoStrip />
+    <TestimonialCarousel />
+
+    <div class="container my-4 text-center">
+      <RouterLink to="/contatti" class="btn btn-primary rounded-pill px-4 py-2">
+        Contattaci
+      </RouterLink>
+    </div>
+  </main>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
+<script setup>
+import HeroCompact from '@/components/HeroCompact.vue'
+import ServicesGrid from '@/components/ServicesGrid.vue'
+import LogoStrip from '@/components/LogoStrip.vue'
+import TestimonialCarousel from '@/components/TestimonialCarousel.vue'
 </script>
