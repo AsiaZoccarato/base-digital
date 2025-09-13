@@ -41,9 +41,8 @@ export default createStore({
     ],
   },
 
-  // ----------------------
+
   // GETTERS: viste/computed globali
-  // ----------------------
   getters: {
     // Restituisce tutti i servizi (usato da ServicesGrid)
     allServices: (state) => state.services,
@@ -55,9 +54,9 @@ export default createStore({
         state.services.find((s) => s.slug === slug),
   },
 
-  // ----------------------
+
   // MUTATIONS: modifiche sincrone allo state
-  // ----------------------
+
   mutations: {
     // Aggiunge un nuovo servizio allo state
     // payload deve essere un oggetto con { slug, title, desc, body, img }
@@ -71,7 +70,7 @@ export default createStore({
 
   // ----------------------
   // ACTIONS: logica (anche async) che chiama le mutations
-  // ----------------------
+ 
   actions: {
     // Esempio di action che inoltra alla mutation di aggiunta
     add({ commit }, payload) {
