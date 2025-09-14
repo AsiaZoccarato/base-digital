@@ -1,56 +1,87 @@
 <template>
-  <div class="container py-4" v-if="service">
+  <!-- è la pagina che legge i servizi dallo store vuex, gestisce ui della pagina 
+   può avere ricerca, filtri, ordinamenti ecc
+   passa i dati filtrati a servicesgrid-->
+  <main class="container py-4">
+    <h1 class="h3 mb-4">I nostri servizi</h1>
+
+    <!-- griglia responsive Bootstrap:
+         - mobile: 1 colonna (col-12)
+         - da md: 2 colonne (col-md-6)
+         - da lg: 3 colonne (col-lg-4) -->
     <div class="row g-4">
-      <div class="col-12 col-lg-6">
-        <img :src="service.img" :alt="service.title" class="img-fluid rounded shadow-sm" />
-      </div>
-      <div class="col-12 col-lg-6">
-        <h1 class="h4 mb-3">{{ service.title }}</h1>
-        <p>{{ service.body }}</p>
-        <RouterLink class="btn btn-outline-primary mt-3" to="/servizi">← Torna ai servizi</RouterLink>
+      <!-- v-for: creo una card per ogni servizio nello store -->
+      <div
+        class="col-12 col-md-6 col-lg-4"
+        v-for="s in services"
+        :key="s.slug"
+      >
+        <div class="card h-100 shadow-sm">
+          <!-- immagine card: mostrata solo se presente -->
+          <img
+            v-if="s.img"
+            :src="s.img"
+            :alt="s.title"
+            class="card-img-top"
+          />
+
+          <div class="card-body d-flex flex-column">
+            <!-- titolo del servizio -->
+            <h2 class="h5">{{ s.title }}</h2>
+
+            <!-- descrizione breve (teaser) -->
+            <p class="text-muted mb-3">{{ s.desc }}</p>
+
+            <!-- link al dettaglio:
+                 costruisco l'URL con lo slug (es. /servizi/social) -->
+            <RouterLink
+              class="btn btn-outline-primary mt-auto"
+              :to="`/servizi/${s.slug}`"
+            >
+              Dettagli
+            </RouterLink>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-else class="container py-4">
-    <p>Servizio non trovato.</p>
-  </div>
+  </main>
 </template>
 
 <script setup>
-import { useStore } from 'vuex'   // per accedere allo store globale
-import { computed } from 'vue'    // per creare proprietà reattive calcolate
-import { useRoute } from 'vue-router' // per leggere i parametri dalla URL
+/* pagina MASTER (lista):
+   - legge tutti i servizi dallo store Vuex (getter allServices)
+   - mostra una card per ciascun servizio
+   - ogni card ha un link che porta alla pagina di DETTAGLIO (/servizi/:slug) */
+
+import { computed } from 'vue'     // per creare proprietà reattive calcolate
+import { useStore } from 'vuex'    // per accedere allo store globale
+import { RouterLink } from 'vue-router' // per link interni senza ricaricare la pagina
 
 // accedo allo store
 const store = useStore()
-// leggo la route corrente
-const route = useRoute()
 
-// computed service:
-// prende lo slug dalla URL (es. /servizi/social → "social")
-// usa il getter getService dello store per restituire il servizio corrispondente
-// se non lo trova, restituisce undefined → attiva il v-else nel template
-const service = computed(() => store.getters.getService(route.params.slug))
+// computed services:
+// legge dal getter allServices l'elenco di tutti i servizi
+// N.B. Assicurati che nello store esista:
+// getters: { allServices: (state) => state.services }
+const services = computed(() => store.getters.allServices)
 </script>
 
-<!--cosa fa il template 
-Se esiste un servizio con lo slug richiesto, mostra immagine + titolo + descrizione.
-Se non esiste, mostra il messaggio “Servizio non trovato”.
+<!-- come funziona questo file (sintesi)
+- È la pagina "master" dei servizi (/servizi).
+- Mostra una griglia di card, una per ogni servizio definito nello store Vuex.
+- Ogni card ha un bottone "Dettagli" che porta a /servizi/:slug (es. /servizi/social).
 
-cosa fa lo script 
-la pagina di dettaglio di un servizio.
+dipendenze lato router:
+- in src/router/index.js servono queste rotte:
+  { path: '/servizi', name: 'services', component: ServicesView },
+  { path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true }
 
-Funziona insieme a router/index.js, che ha la rotta:
-{ path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true }
-Quando vai su /servizi/social → mostra il dettaglio del servizio “Social Media Marketing”.
-Quando vai su /servizi/webmarketing → mostra il dettaglio del servizio “Web Marketing”.
-Se scrivi un URL sbagliato tipo /servizi/altro → appare “Servizio non trovato”.
-
-che cos'è SLUG
-un'applicazione Vue.js (come nel web in generale), uno slug è la parte finale di un URL che identifica in
- modo univoco una pagina o una risorsa, ad esempio mio-articolo-su-vuejs in
-  www.miosito.it/mio-articolo-su-vuejs/mio-articolo-su-vuejs. 
-  È una stringa di testo leggibile, composta da parole minuscole e
-   separate da trattini, utilizzata per creare URL più "amichevoli" per l'utente e i motori di ricerca (SEO). -->
-
-
+dipendenze lato store:
+- in src/store/index.js servono i dati e i getters, ad esempio:
+  state: { services: [ { slug, title, desc, body, img }, ... ] }
+  getters: {
+    allServices: (state) => state.services,
+    getService:  (state) => (slug) => state.services.find(s => s.slug === slug)
+  }
+-->

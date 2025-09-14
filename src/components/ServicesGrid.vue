@@ -1,4 +1,5 @@
-<template> <!--pagina che vediamo con i servizi che proponiamo, subito sotto la sezione hero-->
+<!--servicegrid mostra solo la griglia di card dei servizi-->
+<template> <!--pagina che vediamo con i servizi che proponiamo-->
     <!-- sezione con padding verticale -->
   <section class="py-3">
         <!-- titolo della sezione -->
@@ -47,8 +48,7 @@
 </template>
 
 <script setup>
-/* Invece di definire l’array localmente,
-   importiamo i dati globali dallo store Vuex */
+/* importiamo i dati gobali dallo store di vue */
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
@@ -59,22 +59,8 @@ const store = useStore()
    che legge i servizi dallo store */
 const services = computed(() => store.getters.allServices)
 
-/* Così questo componente userà sempre i dati
-   centralizzati nello store (state.services).
-   Se aggiungi/modifichi i servizi nello store,
-   la lista qui si aggiornerà automaticamente. */
+/*questo componente userà sempre i dati
+   centralizzati nello store (state.services). */
 </script>
 
-<!--A cosa serve
-È la sezione servizi del sito: mostra le card dei servizi offerti.
-Ogni card ha: immagine, titolo, descrizione, bottone “Dettagli”.
-Cliccando “Dettagli” → l’utente viene portato alla pagina /servizi/:slug (es. /servizi/social).
 
-È responsive:
-su mobile → i servizi si vedono uno sotto l’altro,
-su tablet → due colonne,
-su desktop → tre colonne.
-
-La differenza rispetto a prima:
-ora i dati vengono presi dallo store Vuex,
-non più da un array scritto dentro al componente.-->

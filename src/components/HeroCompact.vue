@@ -27,7 +27,7 @@
           <!--primo pulsante principale-->
           <RouterLink to="/contatti" class="btn btn-primary px-4">Parla con noi</RouterLink>
           <!--secondo pulsante, secondario e con bordi-->
-          <RouterLink to="/servizi/webmarketing" class="btn btn-outline-primary">Scopri i servizi</RouterLink>
+          <RouterLink to="/servizi" class="btn btn-outline-primary">Scopri i servizi</RouterLink>
         </div>
       </div>
       <!--seconda colonna con l'immagine a destra e centrata

@@ -23,3 +23,11 @@ const router = createRouter({
 })
 
 export default router
+
+//COME FUNZIONA UNA ROTTA IN VUE ROUTER
+//Ogni riga del routes array ha 3 concetti chiave: 
+// 1. path che è l'URL che l'utente digita o clicca (es. /servizi) e questo è quello che vedi nella barra el browser
+// 2. name, facoltativo ma utile, è un alias interno che diamo alla rotta. 
+// possiamo usarlo nei router link o con router.push (name); non influisce sull'URL ma serve solo in fase di sviluppo
+// 3. Component è il file vue che vue router deve mostrare quando l'utente visita quella rotta. 
+
