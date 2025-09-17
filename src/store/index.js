@@ -1,5 +1,6 @@
 // Importo la factory di Vuex per creare lo store
 import { createStore } from "vuex";
+import position from "./modules/position";
 
 // Esporto lo store così l'app può .use(store) in main.js
 export default createStore({
@@ -15,8 +16,7 @@ export default createStore({
         title: "Social Media Marketing", // titolo che appare nelle card/lista
         subtitle: "Strategia, contenuti e performance", // (opzionale) strapline
         desc: "Piani editoriali, adv e community.", // descrizione breve per l’anteprima (card)
-        body:
-          "Gestiamo i tuoi social media con strategie mirate, creatività e pianificazione editoriale per aumentare visibilità e interazioni.",
+        body: "Gestiamo i tuoi social media con strategie mirate, creatività e pianificazione editoriale per aumentare visibilità e interazioni.",
         // immagini free (link stabili)
         img: "/immagini/agenzia1.jpg", // immagine principale
         gallery: [
@@ -53,8 +53,7 @@ export default createStore({
         title: "Web Marketing",
         subtitle: "SEO, SEM e funnel di conversione",
         desc: "Campagne performance e analytics.",
-        body:
-          "Creiamo e ottimizziamo campagne Google Ads, SEO tecnico e contenuti per far crescere traffico qualificato e conversioni.",
+        body: "Creiamo e ottimizziamo campagne Google Ads, SEO tecnico e contenuti per far crescere traffico qualificato e conversioni.",
         img: "/immagini/agenzia2.jpg", //immagine principale
         gallery: [
           "https://picsum.photos/id/1006/600/400",
@@ -81,8 +80,7 @@ export default createStore({
         title: "E-commerce",
         subtitle: "UX, piattaforma e conversion rate",
         desc: "Store, funnels, ottimizzazione.",
-        body:
-          "Progettiamo e ottimizziamo e-commerce su misura, con attenzione a UX, prestazioni e tassi di conversione.",
+        body: "Progettiamo e ottimizziamo e-commerce su misura, con attenzione a UX, prestazioni e tassi di conversione.",
         img: "/immagini/foto3.jpg", //immagine principale
         gallery: [
           "https://picsum.photos/id/1040/600/400",
@@ -100,7 +98,7 @@ export default createStore({
         level: "Enterprise",
         tags: ["shop", "ux", "cro"],
         related: ["webmarketing"],
-        ctaText: "Richiedi un preventivo gratuito"
+        ctaText: "Richiedi un preventivo gratuito",
       },
     ],
   },
@@ -113,25 +111,21 @@ export default createStore({
     allServices: (state) => state.services,
 
     // Restituisce un singolo servizio dato lo slug (usato da ServiceDetailView)
-    getService:
-      (state) =>
-      (slug) =>
-        state.services.find((s) => s.slug === slug),
+    getService: (state) => (slug) =>
+      state.services.find((s) => s.slug === slug),
 
     // (facoltativo) Ricerca semplice per titolo/desc/tags
-    searchServices:
-      (state) =>
-      (query) => {
-        const q = (query || "").toLowerCase().trim();
-        if (!q) return state.services;
-        return state.services.filter((s) => {
-          return (
-            s.title.toLowerCase().includes(q) ||
-            s.desc.toLowerCase().includes(q) ||
-            (s.tags || []).some((t) => t.toLowerCase().includes(q))
-          );
-        });
-      },
+    searchServices: (state) => (query) => {
+      const q = (query || "").toLowerCase().trim();
+      if (!q) return state.services;
+      return state.services.filter((s) => {
+        return (
+          s.title.toLowerCase().includes(q) ||
+          s.desc.toLowerCase().includes(q) ||
+          (s.tags || []).some((t) => t.toLowerCase().includes(q))
+        );
+      });
+    },
   },
 
   // ----------------------
@@ -176,5 +170,9 @@ export default createStore({
     remove({ commit }, slug) {
       commit("removeService", slug);
     },
+  },
+
+  modules: {
+    position,
   },
 });

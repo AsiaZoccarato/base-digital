@@ -41,6 +41,9 @@
           </li>
 
           <li class="nav-item">
+            <RouterLink class="nav-link" to="/positions">Lavora con noi</RouterLink>
+          </li>
+          <li class="nav-item">
             <RouterLink class="nav-link" to="/news">News</RouterLink>
           </li>
           <!--bottone evidenziato a dx (CTA)
