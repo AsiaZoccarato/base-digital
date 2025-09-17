@@ -15,6 +15,7 @@ const routes = [
   { path: '/news', component: () => import('@/views/Stub.vue') },
   { path: '/contatti', component: () => import('@/views/Stub.vue') },
   { path: '/lavora-con-noi', component: () => import('@/views/Stub.vue') },
+  { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')}
 ]
 
 const router = createRouter({
