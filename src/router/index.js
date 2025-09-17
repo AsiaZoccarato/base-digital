@@ -9,26 +9,22 @@ import PositionDetailView from "@/views/PositionDetailView.vue";
 
 //collegamenti con le varie pagine come se fossero link
 const routes = [
-  { path: "/", name: "home", component: HomeView },
-  { path: "/chi-siamo", component: () => import("@/views/Stub.vue") },
-  { path: "/servizi", name: "services", component: ServicesView },
-  {
-    path: "/servizi/:slug",
-    name: "service-detail",
-    component: ServiceDetailView,
-    props: true,
-  },
-  { path: "/clienti", component: () => import("@/views/Stub.vue") },
-  { path: "/news", component: () => import("@/views/Stub.vue") },
-  { path: "/contatti", component: () => import("@/views/Stub.vue") },
+  { path: '/', name: 'home', component: HomeView },
+  { path: '/chi-siamo', component: () => import('@/views/Stub.vue') },
+  { path: '/servizi', name: 'services', component: ServicesView },
+  { path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true },
+  { path: '/clienti', component: () => import('@/views/Stub.vue') },
+  { path: '/news', component: () => import('@/views/Stub.vue') },
+  { path: '/contatti', component: () => import('@/views/Stub.vue') },
+    { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')}
+
   { path: "/positions", name: "positions", component: PositionsView },
 
   {
     path: "/positions/:slug",
     name: "position-detail",
     component: PositionDetailView,
-  },
-];
+  },]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -29,7 +29,7 @@
           </li>
 
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/chi-siamo">Chi siamo</RouterLink>
+            <RouterLink class="nav-link" to="/about">Chi siamo</RouterLink>
           </li>
 
           <li class="nav-item">
