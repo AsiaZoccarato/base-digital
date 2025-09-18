@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "titolo": "Affluenza record per la nuova edizione della Italian Tech Week",
+    "contenuto": "Alle OGR di Torino si è appena conclusa la settimana dedicata alla tecnologia e alle novità scientifiche...",
+    "link": "https://italiantechweek.com"
+  },
+  {
+    "id": 2,
+    "titolo": "Iveco lancia il nuovo sito",
+    "contenuto": "Per stare al passo con le esigenze di mercato, il sito Iveco cambia veste, con tante novità da scoprire...",
+    "link": "https://www.ivecogroup.com"
+  },
+  {
+    "id": 3,
+    "titolo": "La comunicazione 2.0. A tu per tu con le fondatrici di Base Digital",
+    "contenuto": "Si sono conosciute tra i banchi di un Master e dopo cinque anni hanno organizzato con successo l'ultima edizione della Italian Tech Week...",
+    "link": "https://toocontent.com/magazine/"
+  }
+]
