@@ -6,7 +6,7 @@ import ServicesView from "@/views/ServicesView.vue";
 import ServiceDetailView from "@/views/ServiceDetailView.vue";
 import PositionsView from "@/views/PositionsView.vue";
 import PositionDetailView from "@/views/PositionDetailView.vue";
-import NewsView from '@/views/NewsView.vue'
+
 
 //collegamenti con le varie pagine come se fossero link
 const routes = [
@@ -15,7 +15,7 @@ const routes = [
   { path: '/servizi', name: 'services', component: ServicesView },
   { path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true },
   { path: '/clienti', component: () => import('@/views/Stub.vue') },
-  { path: '/contatti', component: () => import('@/views/Stub.vue') },
+  { path: '/contatti', component: () => import('@/views/ContactView.vue') },
   { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')},
   { path: '/news', name: 'News', component: () => import('@/views/NewsView')},
   { path: "/positions", name: "positions", component: PositionsView },
