@@ -15,8 +15,8 @@ const routes = [
   { path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true },
   { path: '/clienti', component: () => import('@/views/Stub.vue') },
   { path: '/news', component: () => import('@/views/Stub.vue') },
-  { path: '/contatti', component: () => import('@/views/Stub.vue') },
-    { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')},
+  { path: '/contatti', component: () => import('@/views/ContactView.vue') },
+  { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')},
 
   { path: "/positions", name: "positions", component: PositionsView },
 

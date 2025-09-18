@@ -12,7 +12,7 @@
           :alt="service.title"
           class="img-fluid rounded shadow-sm w-100"
         />
-        <!-- Galleria immagini (opzionale): array di url in service.gallery -->
+        <!-- Galleria immagini: array di url in service.gallery -->
         <div v-if="service.gallery?.length" class="row g-2 mt-2">
           <div class="col-4" v-for="(g, i) in service.gallery" :key="`g-${i}`">
             <img :src="g" class="img-fluid rounded shadow-sm" alt="anteprima" />
@@ -157,24 +157,6 @@ gestisce l'immagine in modo robusto (imageSrc) e risolve i correlati (relatedIte
 
 Funziona insieme a router/index.js, che ha la rotta:
 { path: '/servizi/:slug', name: 'service-detail', component: ServiceDetailView, props: true }
-
-Esempi di dati nello store (estendibili):
-{
-  slug: 'social',
-  title: 'Social Media Marketing',
-  subtitle: 'Strategia, contenuti e performance',
-  body: 'Gestiamo i tuoi social con strategia e creatività...',
-  img: '/immagini/social.jpg',
-  gallery: ['/immagini/s1.jpg','/immagini/s2.jpg'],
-  features: ['Calendario editoriale mensile','Report KPI','Gestione community'],
-  deliverables: ['Piano editoriale','Report mensile','Set up tracciamenti'],
-  price: 'da 499€/mese',
-  duration: '3-6 mesi',
-  level: 'Pro',
-  tags: ['social','adv','content'],
-  related: ['webmarketing','seo'],
-  ctaText: 'Parla con un consulente'
-}
 
 che cos'è SLUG
 uno slug è la parte finale di un URL che identifica in modo univoco una pagina
