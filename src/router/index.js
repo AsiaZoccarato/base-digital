@@ -16,7 +16,7 @@ const routes = [
   { path: '/clienti', component: () => import('@/views/Stub.vue') },
   { path: '/news', component: () => import('@/views/Stub.vue') },
   { path: '/contatti', component: () => import('@/views/Stub.vue') },
-    { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')}
+    { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')},
 
   { path: "/positions", name: "positions", component: PositionsView },
 
