@@ -1,24 +1,57 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+
+const router = useRouter();
 
 const props = defineProps({
   data: Array,
   columns: Array,
-  filterKey: String
-})
+  columnsLabels: Array,
+  filterPosition: String,
+  filterCity: String,
+  filterArea: String, 
+  filterSeniority: String,
+});
 
-const sortKey = ref('')
+const sortKey = ref('');
 const sortOrders = ref(
   props.columns.reduce((o, key) => ((o[key] = 1), o), {})
-)
+);
 
 const filteredData = computed(() => {
-  let { data, filterKey } = props
-  if (filterKey) {
-    filterKey = filterKey.toLowerCase()
+  let { data, filterPosition, filterCity, filterArea, filterSeniority } = props
+  if (filterPosition) {
+    filterPosition = filterPosition.toLowerCase()
     data = data.filter((row) => {
       return Object.keys(row).some((key) => {
-        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+        return String(row[key]).toLowerCase().indexOf(filterPosition) > -1
+      })
+    })
+  }
+  if (filterCity) {
+    filterCity = filterCity.toLowerCase()
+    data = data.filter((row) => {
+      return Object.keys(row).some((key) => {
+        return String(row[key]).toLowerCase().indexOf(filterCity) > -1
+      })
+    })
+  }
+  if (filterArea) {
+    filterArea = filterArea.toLowerCase()
+    data = data.filter((row) => {
+      return Object.keys(row).some((key) => {
+        return String(row[key]).toLowerCase().indexOf(filterArea) > -1
+      })
+    })
+  }
+
+  if (filterSeniority) {
+    filterSeniority = filterSeniority.toLowerCase()
+    data = data.filter((row) => {
+      return Object.keys(row).some((key) => {
+        return String(row[key]).toLowerCase().indexOf(filterSeniority) > -1
       })
     })
   }
@@ -39,8 +72,12 @@ function sortBy(key) {
   sortOrders.value[key] *= -1
 }
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+function getLabel(str) {
+  return props.columnsLabels[str];
+}
+
+function goToPosition(slug) {
+  router.push(`/positions/${slug}`)
 }
 </script>
 
@@ -51,46 +88,23 @@ function capitalize(str) {
         <th v-for="key in columns"
           @click="sortBy(key)"
           :class="{ active: sortKey == key }">
-          {{ capitalize(key) }}
+          {{ getLabel(key) }}
           <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
           </span>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="entry in filteredData">
-        <td v-for="key in columns">
-          {{entry[key]}}
+      <tr v-for="entry in filteredData" :key="entry.slug" @click="goToPosition(entry.slug)" style="cursor: pointer;">
+        <td v-for="key in columns" class="align-middle m-2 p-2">
+          {{ entry[key] }}
         </td>
       </tr>
     </tbody>
   </table>
+  <div v-if="filteredData.length" class="card "> 
+    <h4 class="card-text w-75 m-2 ">Posizioni trovate : {{ filteredData.length }}</h4>
+</div>
+  
   <p v-else>No matches found.</p>
 </template>
-
-<style>
-
-
-/* 
-
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  opacity: 0.66;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-} */
-</style>

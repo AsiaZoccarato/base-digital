@@ -69,6 +69,7 @@ const state = {
 
 const getters = {
   getAllPositions: (state) => state.positions,
+
   getPositionBySlug: (state) => (slug) =>
     state.positions.find((p) => p.slug === slug),
 };
