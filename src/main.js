@@ -7,6 +7,9 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'//import di boostrap js (serve per burgermenu che si chiude 
+//solo a ogni cambio di rotta)
+
 
 // Importa JS di Bootstrap (per dropdown, modali, ecc.)
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'

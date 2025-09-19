@@ -19,7 +19,6 @@ const routes = [
   { path: '/about', name: 'About', component: () => import('@/views/AboutView.vue')},
   { path: '/news', name: 'News', component: () => import('@/views/NewsView')},
   { path: "/positions", name: "positions", component: PositionsView },
-
   {
     path: "/positions/:slug",
     name: "position-detail",

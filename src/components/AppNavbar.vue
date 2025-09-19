@@ -60,6 +60,37 @@
   </nav>
 </template>
 
+<script setup>
+import { onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
+import Collapse from 'bootstrap/js/dist/collapse' // <-- import ESM, NO globale
+
+const router = useRouter()
+let collapse // istanza di Bootstrap Collapse
+let unreg // per deregistrare l'hook del router quando il componente si smonta
+
+onMounted(() => {
+  const el = document.getElementById('mainNav') // deve combaciare con l'id nel template
+  if (el) {
+    // crea l'istanza SENZA aprire/chiudere automaticamente
+    collapse = new Collapse(el, { toggle: false })
+  }
+
+  // chiudi il menu ad ogni cambio rotta (solo se è aperto)
+  const off = router.afterEach(() => {
+    try { collapse?.hide() } catch (_) {}
+  })
+  // salva la funzione di cleanup
+  unreg = () => off()
+})
+
+onBeforeUnmount(() => {
+  unreg?.()
+  collapse = null
+})
+</script>
+
+
 <style scoped>
 /* evidenzia la voce attiva 
 scoped vuol dire che questo stile è applicato solo a questa pagina*/

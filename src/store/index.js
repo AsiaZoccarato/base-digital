@@ -5,6 +5,7 @@ import { createStore } from "vuex";
 
 import position from "./modules/position"; //gestisce le posizioni lavorative 
 import contact from "./modules/contact"; //gestisce i messaggi inviati dal form contatti 
+import { themedImages, pickRandom } from '@/utils/images' //immgini tematiche per i servizi
 
 // Esporto lo store così l'app può .use(store) in main.js
 export default createStore({
@@ -23,12 +24,8 @@ export default createStore({
         // immagini free (link stabili)
         img: "/immagini/agenzia1.jpg", // immagine principale
   
-        gallery: [
-          // immagini pescate casualmente per la gallery più piccola 
-          "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400",
-        ],
+      gallery: pickRandom(themedImages.content, 3),
+ // immagini pescate casualmente per la gallery più piccola 
         // punti chiave (bullets)
         features: [
           "Calendario editoriale mensile",
@@ -49,7 +46,7 @@ export default createStore({
         // collegamenti ad altri servizi (slug)
         related: ["webmarketing"],
         // testo CTA personalizzabile
-        ctaText: "Richiedi un preventivo gratuito",
+        ctaText: "Contattaci per saperne di più",
       },
 
       {
@@ -60,12 +57,9 @@ export default createStore({
         desc: "Campagne performance e analytics.",
         body: "Creiamo e ottimizziamo campagne Google Ads, SEO tecnico e contenuti per far crescere traffico qualificato e conversioni.",
         img: "/immagini/agenzia2.jpg", // immagine principale
-        gallery: [
-          // immagini pescate casualmente per la gallery più piccola 
-          "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400",
-        ],
+
+        gallery: pickRandom(themedImages.marketing, 3), 
+        // immagini pescate casualmente per la gallery più piccola 
         features: [
           "Keyword research e struttura SEO",
           "Campagne search & display",
@@ -77,7 +71,7 @@ export default createStore({
         level: "Advanced",
         tags: ["seo", "sem", "analytics"],
         related: ["social", "ecommerce"],
-        ctaText: "Richiedi un preventivo gratuito",
+        ctaText: "Contattaci per saperne di più",
       },
 
       {
@@ -88,11 +82,7 @@ export default createStore({
         desc: "Store, funnels, ottimizzazione.",
         body: "Progettiamo e ottimizziamo e-commerce su misura, con attenzione a UX, prestazioni e tassi di conversione.",
         img: "/immagini/foto3.jpg", // immagine principale
-        gallery: [
-          "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400",
-        ],
+        gallery: pickRandom(themedImages.ecommerce, 3),
         features: [
           "Architettura informazioni e UX",
           "Checkout e pagamenti ottimizzati",
@@ -104,22 +94,18 @@ export default createStore({
         level: "Enterprise",
         tags: ["shop", "ux", "cro"],
         related: ["webmarketing"],
-        ctaText: "Richiedi un preventivo gratuito",
+        ctaText: "Contattaci per saperne di più",
       },
-    {
+
+      {
         // servizio: BRANDING
         slug: "branding",
         title: "Branding & Identità",
         subtitle: "Logo, brandbook e tone of voice",
         desc: "Costruiamo brand memorabili e coerenti.",
         body: "Dallo studio del posizionamento alla definizione di naming, logo, palette e linee guida: creiamo un’identità forte e riconoscibile su tutti i canali.",
-        img: "/immagini/agenzia1.jpg", // immagine principale (puoi sostituirla con un file tuo)
-        gallery: [
-          // immagini pescate casualmente per la gallery più piccola 
-          "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400",
-        ],
+        img: "/immagini/brand.jpg", // immagine principale (puoi sostituirla con un file tuo)
+        gallery: pickRandom(themedImages.communication, 3), // immagini pescate casualmente per la gallery più piccola 
         features: [
           "Analisi posizionamento",
           "Sistema visivo coordinato",
@@ -131,7 +117,7 @@ export default createStore({
         level: "Pro",
         tags: ["branding", "design", "identity"],
         related: ["social", "webmarketing"],
-        ctaText: "Definiamo la tua identità",
+        ctaText: "Contattaci per saperne di più",
       },
 
       {
@@ -141,13 +127,8 @@ export default createStore({
         subtitle: "Copy, visual e short video",
         desc: "Contenuti che parlano alle persone giuste.",
         body: "Produciamo contenuti editoriali e visual su misura per blog, newsletter e canali social, con attenzione a tono di voce, formati e obiettivi.",
-        img: "/immagini/agenzia2.jpg", // immagine principale
-        gallery: [
-          // immagini pescate casualmente per la gallery più piccola 
-      "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400"
-        ],
+        img: "/immagini/content.webp", // immagine principale
+        gallery: pickRandom(themedImages.content, 3), // immagini pescate casualmente per la gallery più piccola 
         features: [
           "Piano contenuti multi-canale",
           "Produzione grafiche e video",
@@ -159,7 +140,7 @@ export default createStore({
         level: "Pro",
         tags: ["content", "copy", "video"],
         related: ["social", "webmarketing", "branding"],
-        ctaText: "Parliamo del tuo piano contenuti",
+        ctaText: "Contattaci per saperne di più",
       },
 
       {
@@ -169,13 +150,8 @@ export default createStore({
         subtitle: "Dashboard, tracciamenti e insight",
         desc: "Misuriamo ciò che conta, non tutto.",
         body: "Impostiamo tracciamenti GA4, eventi e conversioni; progettiamo dashboard su misura per leggere i dati e prendere decisioni rapide e informate.",
-        img: "/immagini/foto3.jpg", // immagine principale
-        gallery: [
-          // immagini pescate casualmente per la gallery più piccola 
-         "https://picsum.photos/id/1006/600/400",
-          "https://picsum.photos/id/1008/600/400",
-          "https://picsum.photos/id/1010/600/400"
-        ],
+        img: "/immagini/dati.jpg", // immagine principale
+        gallery: pickRandom(themedImages.social, 3), // puoi creare anche un tema "analytics" se vuoi
         features: [
           "Setup GA4 e GTM",
           "Dashboard KPI real-time",
@@ -187,12 +163,11 @@ export default createStore({
         level: "Advanced",
         tags: ["analytics", "ga4", "dashboard"],
         related: ["webmarketing", "ecommerce"],
-        ctaText: "Misura e scala i risultati",
+        ctaText: "Contattaci per saperne di più",
       },
     ],
   },
 
-  
   // GETTERS: viste/computed globali
 
   getters: {
