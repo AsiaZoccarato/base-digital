@@ -4,11 +4,13 @@
   row g4 è la spaziatura tra le colonne-->
   <div class="container py-4">
     <div class="row g-4">
-      <!--colonna sx: form contatti-->
+      <!--colonna sx: form contattisu mobile prende tutta la larghezza; da lg in su metà pagina-->
       <div class="col-12 col-lg-6">
         <h1 class="h4 mb-3">Contattaci</h1> <!--titolo del form-->
         <!--form: monta il componente e ascolta l'evento "sent" che emette il figlio-->
-        <ContactForm @sent="onSent" />
+        <ContactForm @sent="onSent" /> 
+        <!--qui il fiflio contactfrom emette l'evento personalizzato sent quando l'invio
+        è andato a buon fine; il padre lo intercetta e chiama onset()-->
       </div>
 
       <!--colonna dx: recapiti + mappa sopra, inbox sotto-->
@@ -31,12 +33,15 @@
           </div>
         </div>
 
-        <!--inbox demo dei messaggi (sotto alla mappa)-->
+        <!--inbox demo dei messaggi (sotto alla mappa)
+        mostra i messaggi "salvati nello store; è la simulazione del db"-->
         <ContactInbox />
       </div>
     </div>
 
-    <!-- toast di successo -->
+    <!-- toast di successo 
+     il toast è condizionale; appare solo quando showtoast ===true
+     è posizionato in basso a destra con position-fixed-->
     <div v-if="showToast" class="toast-container position-fixed bottom-0 end-0 p-3">
       <div class="toast show text-bg-success">
         <div class="toast-body">Messaggio inviato correttamente 🎉</div>
@@ -46,14 +51,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue' //reattività di base
-import ContactForm from '@/components/ContactForm.vue' //form contatti
-import ContactInbox from '@/components/ContactInbox.vue' //inbox demo
+import { ref } from 'vue' //reattività di base: ref crea variabili osservabili 
+import ContactForm from '@/components/ContactForm.vue' //componente figlio con il form 
+import ContactInbox from '@/components/ContactInbox.vue' //componente figlio con la lista messaggi
 
-// stato reattivo per toast
+// stato reattivo locale per mostrare/nascondere il toast 
+//showtoast è un booleano reattivo; false non è visibile; true è visibile 
 const showToast = ref(false)
 
 // callback quando ContactForm emette "sent"
+//appena arriva l'evento il toast diventa true, quindi visibile
+//il toast è visibile per due secondi, poi torna a false e scompare 
 function onSent(){
   showToast.value = true
   setTimeout(() => showToast.value = false, 2000)

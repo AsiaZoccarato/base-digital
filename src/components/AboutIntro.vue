@@ -23,6 +23,8 @@
       <!--colonna media con video responsive 16:9 con bordi arrotoonati-->
       <div class="col-12 col-lg-6">
         <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm">
+          <!--ratio ratio 16x9 è un utility di boostrap e serve per mantenere i 16:9 del video anche se la finestra 
+          cambia dimensione -->
             <!--iframe di youtube responsivo, title per accessibilità e allowfullscreen per schermo intero-->
           <iframe
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"

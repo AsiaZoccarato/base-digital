@@ -40,9 +40,4 @@
 </template>
 
 
-<!--IN SINTESI 
-footer è il contenitore del pie di pagina con sfondo scuro e testo bianco
-container centra e limita la larghezza, con padding verticale
-primo blocco con titolo + recapiti
-secondo blocco con link ai social e icone cliccabili
-terzo blocco con loghi dei partner google e meta-->
+
