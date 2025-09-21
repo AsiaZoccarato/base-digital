@@ -35,9 +35,25 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL), 
   routes,
-});
+
+  //forza lo scroll in alto quando cambi pagina
+  scrollBehavior(to, from, savedPosition) {
+    // torna alla posizione precedente per back/forward del browser
+    if (savedPosition) return savedPosition
+
+    // se navighi verso un'ancora (#id), scrolla a quell'elemento
+    if (to.hash) {
+      return { el: to.hash, top: 0, behavior: 'smooth' }
+    }
+
+    // default: top della pagina
+    return { left: 0, top: 0 }
+    // se vuoi animazione: return { left: 0, top: 0, behavior: 'smooth' }
+  },
+})
+
 
 export default router;
 

@@ -1,4 +1,6 @@
-<!--servicegrid mostra solo la griglia di card dei servizi-->
+<!--servicegrid mostra solo la griglia di card dei servizi
+
+già responsive con boostrap-->
 <template> <!--pagina che vediamo con i servizi che proponiamo-->
     <!-- sezione con padding verticale -->
   <section class="py-3">
@@ -62,5 +64,6 @@ const services = computed(() => store.getters.allServices)
 /*questo componente userà sempre i dati
    centralizzati nello store (state.services). */
 </script>
+
 
 
