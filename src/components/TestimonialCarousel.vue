@@ -1,11 +1,17 @@
 <template>
+  <!--sezione con padding verticale. titolo centrato sopra-->
   <section class="py-4">
     <h2 class="h5 mb-3 text-center">Cosa dicono di noi</h2>
 
     <!-- wrapper centrato e più stretto -->
     <div class="container">
+      <!--uso la griglia boostrap per centrare e restringere la larghezza da 12 a 8 a seconda del breakpoint-->
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
+          <!--carosello nativo di boostrap
+          parte da solo
+          cambia slide ogni 5 secondi
+          consente swipe su mobile touch true -->
           <div
             id="testiCarousel"
             class="carousel slide"
@@ -14,6 +20,10 @@
             data-bs-touch="true"
           >
             <div class="carousel-inner">
+              <!--slide generate con v-for
+              creo le slide leggendo i dati dall'array testi
+              la prima i === 0 viene marcata come active, altrimenti il carousel non parte
+              dentro ogni slide abbiamo la card con la citazione t.quote, l'autore t.author, ruolo t.role-->
               <div v-for="(t,i) in testi" :key="i" class="carousel-item" :class="{ active: i===0 }">
                 <div class="card border-0 shadow-sm text-center">
                   <div class="card-body px-4 py-4">
@@ -24,7 +34,8 @@
               </div>
             </div>
 
-            <!-- frecce nere -->
+            <!-- frecce dx e sx
+             ho aggiunto la classe crtl-dark per scurirle dato che di default boostrap le metteva bianche  -->
             <button class="carousel-control-prev ctrl-dark" type="button" data-bs-target="#testiCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Precedente</span>
@@ -35,7 +46,9 @@
             </button>
           </div>
 
-          <!-- indicatori sotto, centrati -->
+          <!-- indicatori sotto, centrati 
+           sono i pallini sotto il carousel, anche questi generati con v-for sull'array testo
+           hanno la :data - bs-slide-to= 1 per dire a quale slide saltare-->
           <div class="carousel-indicators mt-3 position-static">
             <button v-for="(t,i) in testi" :key="'ind-'+i"
               type="button" data-bs-target="#testiCarousel" :data-bs-slide-to="i"
@@ -49,7 +62,8 @@
 </template>
 
 <script setup>
-const testi = [
+const testi = [ //array statico con soli tre oggetti
+//ogni oggetto ha tre proprietà: quote, author, role
   { quote:'Strategia chiara e risultati misurabili.', author:'Marco R.', role:'CMO, Retail' },
   { quote:'Team veloce e super disponibile.', author:'Sara P.', role:'Founder, Startup' },
   { quote:'Campagne social che finalmente convertono.', author:'Luca D.', role:'E-commerce Manager' },
@@ -63,7 +77,7 @@ const testi = [
   filter: invert(1) grayscale(100%) brightness(0.2);
 }
 
-/* indicatori un po’ più grandi */
+/* serve per rednere i pallini un po piu grandi e rotondi */
 .carousel-indicators [data-bs-target]{
   width: 10px; height: 10px; border-radius: 50%;
 }

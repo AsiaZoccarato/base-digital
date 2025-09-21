@@ -32,20 +32,23 @@ export default createStore({
           "Report performance con KPI",
           "Gestione community",
         ],
-        // consegne tangibili
+
+        // consegne 
         deliverables: [
           "Piano editoriale",
           "Set up tracciamenti",
           "Report mensile",
         ],
+
         // info rapide
         price: "da 499€/mese",
         duration: "3–6 mesi",
         level: "Pro",
         tags: ["social", "adv", "content"],
+
         // collegamenti ad altri servizi (slug)
         related: ["webmarketing"],
-        // testo CTA personalizzabile
+        // testo CTA 
         ctaText: "Contattaci per saperne di più",
       },
 
@@ -65,12 +68,29 @@ export default createStore({
           "Campagne search & display",
           "Tracciamenti GA4 e dashboard",
         ],
-        deliverables: ["Piano keyword", "Campagne impostate", "Report CRO"],
+        //consegne
+        deliverables: [
+          "Piano keyword", 
+          "Campagne impostate", 
+          "Report CRO"
+        ],
+        //informazioni rapide 
         price: "da 790€/mese",
         duration: "continuativa (mensile)",
         level: "Advanced",
-        tags: ["seo", "sem", "analytics"],
-        related: ["social", "ecommerce"],
+
+        tags: [
+          "seo", 
+          "sem", 
+          "analytics"
+        ],
+        //servizi collegati 
+        related: [
+          "social", 
+          "ecommerce"
+        ],
+
+        //cta 
         ctaText: "Contattaci per saperne di più",
       },
 
@@ -83,17 +103,31 @@ export default createStore({
         body: "Progettiamo e ottimizziamo e-commerce su misura, con attenzione a UX, prestazioni e tassi di conversione.",
         img: "/immagini/foto3.jpg", // immagine principale
         gallery: pickRandom(themedImages.ecommerce, 3),
+
+      //caratteristiche principali  
         features: [
           "Architettura informazioni e UX",
           "Checkout e pagamenti ottimizzati",
           "Email marketing & automation",
         ],
-        deliverables: ["Wireframe", "Setup piattaforma", "Test A/B iniziali"],
+
+        deliverables: [
+          "Wireframe",
+           "Setup piattaforma", 
+           "Test A/B iniziali"
+          ],
+
         price: "project-based (su preventivo)",
         duration: "4–10 settimane",
         level: "Enterprise",
-        tags: ["shop", "ux", "cro"],
+
+        tags: [
+          "shop", 
+          "ux", 
+          "cro"],
+
         related: ["webmarketing"],
+
         ctaText: "Contattaci per saperne di più",
       },
 
@@ -106,17 +140,33 @@ export default createStore({
         body: "Dallo studio del posizionamento alla definizione di naming, logo, palette e linee guida: creiamo un’identità forte e riconoscibile su tutti i canali.",
         img: "/immagini/brand.jpg", // immagine principale (puoi sostituirla con un file tuo)
         gallery: pickRandom(themedImages.communication, 3), // immagini pescate casualmente per la gallery più piccola 
+       
         features: [
           "Analisi posizionamento",
           "Sistema visivo coordinato",
           "Tone of voice e linee guida",
         ],
-        deliverables: ["Logo kit", "Brandbook PDF", "Template social"],
+
+        deliverables: [
+          "Logo kit", 
+          "Brandbook PDF",
+           "Template social"
+          ],
+
         price: "da 1.200€ una tantum",
         duration: "2–5 settimane",
         level: "Pro",
-        tags: ["branding", "design", "identity"],
-        related: ["social", "webmarketing"],
+        
+        tags: [
+          "branding",
+           "design", 
+           "identity"
+          ],
+
+        related: ["social",
+           "webmarketing"
+          ],
+        
         ctaText: "Contattaci per saperne di più",
       },
 
@@ -129,17 +179,34 @@ export default createStore({
         body: "Produciamo contenuti editoriali e visual su misura per blog, newsletter e canali social, con attenzione a tono di voce, formati e obiettivi.",
         img: "/immagini/content.webp", // immagine principale
         gallery: pickRandom(themedImages.content, 3), // immagini pescate casualmente per la gallery più piccola 
+        
         features: [
           "Piano contenuti multi-canale",
           "Produzione grafiche e video",
           "Ottimizzazione SEO on-page",
         ],
-        deliverables: ["Calendario editoriale", "Pacchetto grafiche", "Articoli ottimizzati"],
+
+        deliverables: [
+          "Calendario editoriale", 
+          "Pacchetto grafiche", 
+          "Articoli ottimizzati"],
+
         price: "da 650€/mese",
         duration: "mensile",
         level: "Pro",
-        tags: ["content", "copy", "video"],
-        related: ["social", "webmarketing", "branding"],
+
+        tags: [
+          "content", 
+          "copy", 
+          "video"
+        ],
+
+        related: [
+          "social",
+           "webmarketing", 
+           "branding"
+          ],
+
         ctaText: "Contattaci per saperne di più",
       },
 
@@ -152,17 +219,33 @@ export default createStore({
         body: "Impostiamo tracciamenti GA4, eventi e conversioni; progettiamo dashboard su misura per leggere i dati e prendere decisioni rapide e informate.",
         img: "/immagini/dati.jpg", // immagine principale
         gallery: pickRandom(themedImages.social, 3), // puoi creare anche un tema "analytics" se vuoi
+       
         features: [
           "Setup GA4 e GTM",
           "Dashboard KPI real-time",
           "Analisi funnel e CRO",
         ],
-        deliverables: ["Piano di tracking", "Dashboard Data Studio", "Report insight mensile"],
+        
+        deliverables: [
+          "Piano di tracking", 
+          "Dashboard Data Studio",
+           "Report insight mensile"
+          ],
+
         price: "da 890€ (setup) + report",
         duration: "2–4 settimane (setup)",
         level: "Advanced",
-        tags: ["analytics", "ga4", "dashboard"],
-        related: ["webmarketing", "ecommerce"],
+
+        tags: [
+          "analytics", 
+          "ga4", 
+          "dashboard"
+        ],
+
+        related: ["webmarketing", 
+          "ecommerce"
+        ],
+        
         ctaText: "Contattaci per saperne di più",
       },
     ],
@@ -180,62 +263,25 @@ export default createStore({
 
     //  Ricerca semplice per titolo/desc/tags
     searchServices: (state) => (query) => {
-      const q = (query || "").toLowerCase().trim();
+      //1) normalizzazione input: se null/undefined -> "", minuscole, senza spazi ai lati 
+      const q = (query || "").toLowerCase().trim(); //case insenstivi, cioè non fa differenze tra maiscuole e minuscole e ignora gli spazi
+
+      //2) caso vuoto: se l'utente non ha digitato nulla restituisci tutti i servizi 
       if (!q) return state.services;
+
+      //3) filtro: tieni solo i servizi che corrispondono alla ricerca 
       return state.services.filter((s) => {
         return (
+          //match sul titolo 
           s.title.toLowerCase().includes(q) ||
+          //match su descrizione breve 
           s.desc.toLowerCase().includes(q) ||
+          //match su almeno un tag
           (s.tags || []).some((t) => t.toLowerCase().includes(q))
         );
       });
     },
   },
-
-  // ----------------------
-  // MUTATIONS: modifiche sincrone allo state
-  // ----------------------
-  mutations: {
-    // Aggiunge un nuovo servizio allo state
-    // payload deve essere un oggetto con almeno { slug, title, desc, body, img }
-    addService(state, payload) {
-      state.services.push(payload);
-    },
-
-    // Aggiorna un servizio esistente (merge shallow per semplicità)
-    updateService(state, { slug, patch }) {
-      const idx = state.services.findIndex((s) => s.slug === slug);
-      if (idx !== -1) {
-        state.services[idx] = { ...state.services[idx], ...patch };
-      }
-    },
-
-    // Rimuove un servizio per slug
-    removeService(state, slug) {
-      state.services = state.services.filter((s) => s.slug !== slug);
-    },
-  },
-
-  // ----------------------
-  // ACTIONS: logica (anche async) che chiama le mutations
-  // ----------------------
-  actions: {
-    // Inoltra alla mutation di aggiunta
-    add({ commit }, payload) {
-      commit("addService", payload);
-    },
-
-    // Aggiornamento comodo
-    update({ commit }, { slug, patch }) {
-      commit("updateService", { slug, patch });
-    },
-
-    // Rimozione
-    remove({ commit }, slug) {
-      commit("removeService", slug);
-    },
-  },
-
   // ----------------------
   // MODULES: suddivisione logica dello store
   // ----------------------

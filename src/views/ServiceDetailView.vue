@@ -140,6 +140,13 @@ const imageSrc = computed(() => {
 
 // relatedItems: mappa gli slug in oggetti servizio reali (se esistono)
 // consente di mostrare titolo/desc/img dei correlati
+//nello store vuex ogni servizio ha un campo related con un array di slug di altri servizi
+//nel servicedetail c'è questa parte di script che se il servizio corrente non ha related, 
+//restituisce un array vuoto e non mostra nulla
+//se invece ha degli slug, fa un map: prende ogni slug e lo passa al getter getservice dallo store
+//che restituisce l'oggetto completo del servizio corrispondente 
+//filter boolean serve a scartare eventuali valori null 
+//nel template mostra i related con un ciclo vfor e mostra le card dei servizi corelati
 const relatedItems = computed(() => {
   if (!service.value?.related?.length) return []
   return service.value.related

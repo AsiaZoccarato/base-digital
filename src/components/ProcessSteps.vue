@@ -8,16 +8,23 @@
       <p class="text-muted mb-0">Quattro step chiari, dal brief al miglioramento continuo.</p>
     </div>
 
-    <!--grigilia responsive con boostrap
-    su mobile 1 colonna col 12
-    da md 2 colonne col md 6
-    da lg 4 colonne col lg 3-->
+    <!--grigilia responsive con boostrap-->
     <div class="row g-4">
-        <!--STEP 1-->
+      
+      <!--ogni setp è una colonna con classi responsive:
+      col12 su mobile ogni step occupa tutta la riga
+      col md 6 su tablet divido in due le colonne
+      col lg 3 su desktop largo divido in quattro colonne-->
+
+      <!--ogni setp è dentro una card h100 e border 0
+      h100 fa si che tutte le card abbiano la stessa altezza
+      borer0 toglie il bordo di default-->
+      <!--STEP 1-->
       <div class="col-12 col-md-6 col-lg-3">
         <!--card flat con border 0 e h-100 per avere tutte le card alla stessa altezza-->
         <div class="card h-100 border-0">
           <div class="card-body">
+            <!--dentro card body abbiamo un numero grande + un titolo breve + descrizione concisa -->
             <!--numero grande come indicatore dello step-->
             <div class="display-6 mb-2">1</div>
             <!--titolo breve dello step-->
@@ -27,6 +34,7 @@
           </div>
         </div>
       </div>
+     
       <!--STEP 2-->
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card h-100 border-0">
@@ -37,6 +45,7 @@
           </div>
         </div>
       </div>
+     
       <!--STEP 3-->
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card h-100 border-0">

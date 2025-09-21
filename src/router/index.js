@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
+//importiamo la factory per creare il router e lo storico in modalità HTML5
 
-// viste principali
+// viste principali import statico incluso nel bundle iniziale
 import HomeView from "@/views/HomeView.vue";
 import ServicesView from "@/views/ServicesView.vue";
 import ServiceDetailView from "@/views/ServiceDetailView.vue";
@@ -10,34 +11,67 @@ import PositionDetailView from "@/views/PositionDetailView.vue";
 //collegamenti con le varie pagine come se fossero link
 const routes = [
   { path: "/", name: "home", component: HomeView },
+  //path di root --> home. do anche un name alla rotta (utile per navigare by name )
+ 
   { path: "/chi-siamo", component: () => import("@/views/Stub.vue") },
-  { path: "/servizi", name: "services", component: ServicesView },
+  //import dinamico (lazy loading): crea uno split-chunck e scarica la vista solo quando serve 
+  
+  { path: "/servizi", name: "services", component: ServicesView }, //lista di servizi
+
   {
-    path: "/servizi/:slug",
-    name: "service-detail",
-    component: ServiceDetailView,
-    props: true,
+    path: "/servizi/:slug", //slug = parametro dinamico nell'url es. /servizi/seo
+    name: "service-detail", //nome rottaa per push/routerlink by name 
+    component: ServiceDetailView, //vista di dettaglio servizio 
+    props: true, //passa i parametri di rotta (slug ) come prop al component
   },
+
   { path: "/clienti", component: () => import("@/views/Stub.vue") },
+  // pagina placeholder caricata in lazy si potrà poi togliere alla fine 
   { path: "/contatti", component: () => import("@/views/ContactView.vue") },
-  {
+  //pagina contatti in lazy loading, quindi caricata quando serve 
+
+  { //altra pagina chi siamo caricata in lazy loading 
     path: "/about",
     name: "About",
     component: () => import("@/views/AboutView.vue"),
   },
+
   { path: "/news", name: "News", component: () => import("@/views/NewsView") },
+//rotta per la pagina news con import dinamico 
+
   { path: "/positions", name: "positions", component: PositionsView },
+//lista poosizioni con import statico 
+
+
   {
     path: "/positions/:slug",
     name: "position-detail",
-    component: PositionDetailView,
+    component: PositionDetailView, //dettaglio posizione con param dinamico:slug 
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-});
+  history: createWebHistory(process.env.BASE_URL), //tipo di history: html5
+  routes, //registro l'array di rotte 
+  
+  
+
+  //forza lo scroll in alto quando cambi pagina
+  scrollBehavior(to, from, savedPosition) {
+    // se usi i bottoni del browser torna alla posizione salvata 
+    if (savedPosition) return savedPosition
+
+    // se navigo verso un'ancora (id) allora scrolla li 
+    if (to.hash) {
+      return { el: to.hash, top: 0, behavior: 'smooth' }
+    }
+
+    // altrimenti di default torna in alto alla pagina 
+    return { left: 0, top: 0 }
+   
+  },
+})
+
 
 export default router;
 
