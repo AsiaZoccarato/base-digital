@@ -8,7 +8,6 @@
       <div class="h5 mb-1">Career Opportunities: {{position.title}} </div>
       <div v-html="position.description">
       </div>
-      <ButtonRow />
       <JobApplicationForm :role="position.title" />
     </div>
   </div>

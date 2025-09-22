@@ -1,6 +1,6 @@
 <template>
     <h4 class="text-align">Invia candidatura</h4>
-    <form ref="form" @submit.prevent="sendEmail">
+    <form ref="form" @submit.prevent="sendEmail" id="application-form" class="p-4 border">
         <div class="row mb-3">
             <label for="role" class="col-sm-3 col-form-label">Ruolo:</label>
             <div class="col-sm-9">
