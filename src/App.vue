@@ -1,12 +1,13 @@
 <template>
-  <v-app>
+  <div>
     <AppNavbar />
     <router-view />
     <AppFooter />
-  </v-app>
+  </div>
 </template>
 
 <script setup>
 import AppNavbar from '@/components/AppNavbar.vue'
 import AppFooter from '@/components/AppFooter.vue'
 </script>
+
