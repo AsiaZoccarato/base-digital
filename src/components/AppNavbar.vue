@@ -53,6 +53,12 @@
             <RouterLink class="btn btn-sm btn-primary rounded-pill px-3" to="/contatti">
               Contattaci
             </RouterLink>
+          <li class="nav-item ms-lg-3">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/login">
+              <i class="bi bi-person-circle me-1"></i>
+              Area riservata
+            </RouterLink>
+          </li>
           </li>
         </ul>
       </div>
