@@ -10,6 +10,7 @@
         routerlink sono i link gestiti da router (non ricarica la pagina)
         d flex align items center gap 2 sono il logo e il testo affiancati con spazio-->
       <RouterLink class="navbar-brand d-flex align-items-center gap-2" to="/"> <!--"/" è la rotta principale, cioè la home definita in router-->
+       
         <img src="/immagini/logo.png" alt="Logo" height="28" />
         <span class="fw-semibold">Base Digital</span>
       </RouterLink>
