@@ -5,9 +5,9 @@
         <button
           class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
-          :data-bs-target="`#collapse-${index}`"
-          aria-expanded="false"
+          @click="toggleAccordion(index)"
+          :class="{ collapsed: !isOpen[index] }"
+          aria-expanded="isOpen[index]"
           :aria-controls="`collapse-${index}`"
         >
           {{ entry.seniority }} {{ entry.title }}
@@ -17,6 +17,7 @@
        <div
         :id="`collapse-${index}`"
         class="accordion-collapse collapse"
+        :class="{ show: isOpen[index] }"
         :aria-labelledby="`heading-${index}`"
         data-bs-parent="#positionsAccordion">
         <div class="accordion-body">
@@ -60,11 +61,6 @@ const props = defineProps({
   filterSeniority: String,
 });
 
-const sortKey = ref('');
-const sortOrders = ref(
-  props.columns.reduce((o, key) => ((o[key] = 1), o), {})
-);
-
 const filteredData = computed(() => {
   let { data, filterPosition, filterCity, filterArea, filterSeniority } = props
   if (filterPosition) {
@@ -94,21 +90,12 @@ const filteredData = computed(() => {
         return String(row['seniority']).toLowerCase().indexOf(filterSeniority) > -1;
     })
   }
-  const key = sortKey.value
-  if (key) {
-    const order = sortOrders.value[key]
-    data = data.slice().sort((a, b) => {
-      a = a[key]
-      b = b[key]
-      return (a === b ? 0 : a > b ? 1 : -1) * order
-    })
-  }
   return data
 })
 
-function sortBy(key) {
-  sortKey.value = key
-  sortOrders.value[key] *= -1
+const isOpen = ref({});
+function toggleAccordion(index) {
+  isOpen.value[index] = !isOpen.value[index];
 }
 
 function goToPosition(slug) {

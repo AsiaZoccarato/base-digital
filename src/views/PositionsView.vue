@@ -19,39 +19,22 @@
     <button
       @click="clearSearch"
       type="button"
-      class="btn btn-link text-decoration-none position-absolute top-50 end-0 translate-middle-y me-2 p-0"
+      class="btn btn-link grey-bg text-decoration-none position-absolute top-50 end-0 translate-middle-y me-2 p-0"
       aria-label="Clear input"
-      
-    >
-      <i class="bi bi-x-circle-fill fs-5"></i>
+      >
+      <i class="bi bi-x-circle-fill fs-5 text-primary"></i>
     </button>
   </div>
      
   </div>
   <div id="searchCityQuery" class="mb-4 align-items-center">
-    <label for="city-select" class="form-label">
-    Località: </label>
-    <select id="city-select" v-model="searchCityQuery" class="form-select">
-      <option v-for="city in cityOptions" :key="city" :value="city">
-        {{ city }}
-      </option>
-    </select>
+  	<v-select label="Località" :items="cityOptions" v-model="searchCityQuery"></v-select>
   </div>
   <div id="searchAreaQuery" class="mb-4 align-items-center">
-    <label for="area-select" class="form-label">Aree:</label>
-    <select id="area-select" v-model="searchAreaQuery" class="form-select">
-      <option v-for="area in areaOptions" :key="area" :value="area">
-        {{ area }}
-      </option>
-    </select>
+  	<v-select label="Aree" :items="areaOptions" v-model="searchAreaQuery"></v-select>
   </div>
    <div id="searchSeniorityQuery" class="mb-4 align-items-center">
-    <label for="seniority-select" class="form-label">Livelli di esperienza:</label>
-    <select id="seniority-select" v-model="searchSeniorityQuery" class="form-select">
-    <option v-for="level in seniorityOptions" :key="level" :value="level">
-      {{ level }}
-    </option>
-  </select>
+	<v-select label="Livello" :items="seniorityOptions" v-model="searchSeniorityQuery"></v-select>
 </div>
   </div>
   <div class="col-md-9 mb-4 mt-4 ">
@@ -80,9 +63,7 @@ const store = useStore();
 const positions = computed(() => store.getters['position/getAllPositions']);
 
 const searchPositionQuery = ref('');
-const searchCityQuery = ref('');
-const searchAreaQuery = ref('');  
-const searchSeniorityQuery = ref('');
+
 
 const seniorityOptions = computed(() => {
   const allLevels = positions.value.map(p => p.seniority).filter(Boolean);
@@ -101,6 +82,10 @@ const cityOptions = computed(() => {
   const uniqueCities = [...new Set(allCities)].filter(Boolean);
   return ['Tutte le località', ...uniqueCities];
 })
+
+const searchCityQuery = ref(cityOptions.value[0] || '')
+const searchAreaQuery = ref(areaOptions.value[0] || '')
+const searchSeniorityQuery = ref(seniorityOptions.value[0] || '')
 
 const gridColumns = ['title', 'area', 'seniority','country', 'city'];
 const gridColumnsLabels = {
