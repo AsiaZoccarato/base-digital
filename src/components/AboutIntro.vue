@@ -10,7 +10,6 @@
         <h2 class="h3 mb-3">Chi è Base Digital (in breve)</h2>
         <!--paragrafo introduttivo con router link interno alla pagina "chi siamo"-->
         <p class="mb-3">
-          PROVA!!!!!
           Siamo un team multidisciplinare che unisce strategia, creatività e dati per far crescere brand e progetti digitali.
           In questa pagina trovi una sintesi del nostro approccio: per la storia completa vai su <RouterLink to="/about">Chi siamo</RouterLink>.
         </p>
