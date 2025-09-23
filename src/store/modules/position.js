@@ -33,7 +33,7 @@ const state = {
     },
     {
       slug: "profession_data_engineer",
-      title: "Data engineer",
+      title: "Data Engineer",
       country: "Italia",
       city: "Milano",
       area: "Database",
@@ -159,7 +159,7 @@ const state = {
     },
     {
       slug: "profession_data_engineer_1",
-      title: "Data engineer",
+      title: "Data Engineer",
       country: "Italia",
       city: "Milano",
       area: "Database",
