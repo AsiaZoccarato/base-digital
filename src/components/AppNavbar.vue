@@ -56,10 +56,11 @@
             </RouterLink>
             </li>
           <li class="nav-item ms-lg-3">
-            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/login">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/dashboard">
               <i class="bi bi-person-circle me-1"></i>
               Area riservata
             </RouterLink>
+            <!-- il bottone dell'area riservata ti manda alla vista DashboardView.vue, che a sua volta ti reindirizza automaticamente al login se non sei loggato. Se invece hai già fatto il login (e quindi sei nella dashboard), premendo sul bottone rimani sempre sulla dashboard -->
           </li>
         </ul>
       </div>

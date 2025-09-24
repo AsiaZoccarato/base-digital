@@ -1,15 +1,13 @@
+<!-- Dashboard interna all'area riservata in cui l'utente può prenotare un appuntamento e vedere quelli già prenotati-->
 <template>
   <div class="dashboard-page">
-    <!-- Header Dashboard -->
+    <!-- Header Dashboard: v-app-bar è un componente Vuetify-->
     <v-app-bar color="primary" dark>
       <v-app-bar-title>
         <v-icon class="me-2">mdi-view-dashboard</v-icon>
         Dashboard - {{ user.nome }}
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="logout">
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <div class="container py-5">
@@ -27,8 +25,21 @@
                 <v-icon start>mdi-check-circle</v-icon>
                 Account Attivo
               </v-chip>
+
+               <!-- Bottone Logout -->
+              <v-btn
+                color="error"
+                variant="outlined"
+                block
+                @click="logout"
+                class="mt-2"
+              >
+                <v-icon start>mdi-logout</v-icon>
+                Esci
+              </v-btn>
             </v-card-text>
           </v-card>
+
 
           <!-- Stats veloce -->
           <v-card elevation="4">
@@ -69,6 +80,7 @@
                       <v-icon class="me-1">mdi-calendar</v-icon>
                       Seleziona Data
                     </label>
+                    <!-- v-date-picker è il componente Vuetify per scegliere la data -->
                     <v-date-picker
                       v-model="booking.data"
                       :min="today"
@@ -85,6 +97,7 @@
                       <v-icon class="me-1">mdi-clock</v-icon>
                       Seleziona Orario
                     </label>
+                    <!-- v-time-picker è il componente Vuetify per scegliere l'ora (mezz'ore)-->
                     <v-time-picker
                       v-model="booking.ora"
                       :allowed-hours="allowedHours"
@@ -97,7 +110,7 @@
                   </div>
                 </div>
 
-                <!-- Tipo di servizio -->
+                <!-- Tipo di servizio. v-select = dropdown dei servizi (Vuetufy) -->
                 <v-select
                   v-model="booking.servizio"
                   :items="servizi"
@@ -147,6 +160,7 @@
                 :items-per-page="5"
                 class="elevation-1"
               >
+                <!-- v-chip è il componente Vuetify per le etichette colore (errore/confermato) -->
                 <template #item.data="{ item }">
                   <v-chip color="primary" variant="tonal">
                     {{ formatData(item.data) }}
@@ -239,14 +253,15 @@ export default {
    mounted() {
     this.loadUser()
   },
+  // loadUser legge chi è loggato dal localStorage
   methods: {
     loadUser() {
       const currentUser = localStorage.getItem('currentUser')
       if (!currentUser) {
-        this.$router.push('/login')
+        this.$router.push('/login') // se non c'è nel localStorage, torna al login
         return
       }
-      this.user = JSON.parse(currentUser)
+      this.user = JSON.parse(currentUser) //altrimenti carica i suoi dati
     },
 
     allowedHours(hour) {
@@ -308,10 +323,10 @@ export default {
     },
 
     updateUserInStorage() {
-      // Aggiorna currentUser
+      // Aggiorna l'appuntamento del currentUser
       localStorage.setItem('currentUser', JSON.stringify(this.user))
       
-      // Aggiorna anche nella lista users
+      // Aggiorna l'appuntamento anche nella lista users
       const users = JSON.parse(localStorage.getItem('users') || '[]')
       const index = users.findIndex(u => u.id === this.user.id)
       if (index !== -1) {
