@@ -208,12 +208,12 @@ export default {
         note: ''
       },
       servizi: [
-        'Consulenza Digital Marketing',
-        'Sviluppo Sito Web',
-        'Gestione Social Media',
-        'E-commerce Setup',
-        'SEO Audit',
-        'Formazione Team'
+        'Social Media Marketing',
+        'Web Marketing',
+        'E-commerce',
+        'Branding & Identità',
+        'Content Creation',
+        'Data & Analytics'
       ],
       headers: [
         { title: 'Data', key: 'data', sortable: true },
