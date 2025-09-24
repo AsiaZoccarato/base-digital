@@ -50,41 +50,35 @@
                   class="mb-4"
                 ></v-text-field>
 
-                <!-- Pulsante Submit -->
-                <v-btn
-                  type="submit"
+                <!-- Pulsante Submit (Bootstrap) -->
+                <button 
+                  type="submit" 
                   :disabled="!valid || loading"
-                  :loading="loading"
-                  color="primary"
-                  size="large"
-                  block
-                  class="mb-3"
+                  class="btn btn-primary btn-lg w-100 mb-3"
                 >
+                   <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
                   {{ isRegistering ? 'Registrati' : 'Accedi' }}
-                </v-btn>
+                </button>
 
-                <!-- Alert per errori -->
-                <v-alert
-                  v-if="error"
-                  type="error"
-                  variant="tonal"
-                  class="mb-3"
-                >
+                <!-- Alert per errori (Bootstrap)-->
+                <div v-if="error" class="alert alert-danger alert-dismissible mb-3" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill me-2"></i>
                   {{ error }}
-                </v-alert>
+                  <button type="button" class="btn-close" @click="error = ''"></button>
+                </div>
 
-                <!-- Switch tra Login e Registrazione -->
+                <!-- Switch tra Login e Registrazione (Bootstrap)-->
                 <div class="text-center">
                   <p class="text-muted mb-2">
                     {{ isRegistering ? 'Hai già un account?' : 'Non hai un account?' }}
                   </p>
-                  <v-btn
-                    variant="text"
-                    color="primary"
+                  <button
+                    type="button"
+                    class="btn btn-link text-decoration-none p-0"
                     @click="toggleMode"
                   >
                     {{ isRegistering ? 'Accedi qui' : 'Registrati qui' }}
-                  </v-btn>
+                  </button>
                 </div>
               </v-form>
             </v-card-text>

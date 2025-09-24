@@ -21,22 +21,17 @@
               </v-avatar>
               <h4>{{ user.nome }}</h4>
               <p class="text-muted">{{ user.email }}</p>
-              <v-chip color="success" variant="tonal">
-                <v-icon start>mdi-check-circle</v-icon>
+              <!--Bootstrap per il badge-->
+              <span class="badge bg-success-subtle text-success">
+                <i class="bi bi-check-circle me-1"></i>
                 Account Attivo
-              </v-chip>
+              </span>
 
-               <!-- Bottone Logout -->
-              <v-btn
-                color="error"
-                variant="outlined"
-                block
-                @click="logout"
-                class="mt-2"
-              >
-                <v-icon start>mdi-logout</v-icon>
+               <!-- Bottone Logout (Bootstrap)-->
+              <button class="btn btn-outline-danger w-100 mt-2" @click="logout">
+                <i class="bi bi-box-arrow-right me-1"></i>
                 Esci
-              </v-btn>
+              </button>
             </v-card-text>
           </v-card>
 
@@ -48,16 +43,16 @@
               Le tue statistiche
             </v-card-title>
             <v-card-text>
-              <div class="d-flex justify-space-between align-center mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <span>Appuntamenti totali:</span>
-                <v-chip color="primary">{{ user.appuntamenti?.length || 0 }}</v-chip>
+                <span class="badge bg-primary">{{ user.appuntamenti?.length || 0 }}</span>
               </div>
-              <div class="d-flex justify-space-between align-center">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <span>Prossimo appuntamento:</span>
-                <v-chip color="success" v-if="prossimoAppuntamento">
+                <span class="badge bg-success" v-if="prossimoAppuntamento">
                   {{ prossimoAppuntamento }}
-                </v-chip>
-                <v-chip color="grey" v-else>Nessuno</v-chip>
+                </span>
+                <span class="badge bg-secondary" v-else>Nessuno</span>
               </div>
             </v-card-text>
           </v-card>
