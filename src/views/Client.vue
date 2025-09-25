@@ -3,9 +3,9 @@
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="container">
-        <h1 class="hero-title">Le nostre storie di successo</h1>
+        <h1 class="hero-title">Le Nostre Storie di Successo</h1>
         <p class="hero-subtitle">
-          Scopri come abbiamo aiutato i nostri clienti a raggiungere i loro obiettivi 
+          Scopri come abbiamo aiutato i nostri clienti a raggiungere i loro obiettivi, 
           attraverso strategie digitali su misura.
         </p>
       </div>

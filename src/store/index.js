@@ -6,6 +6,8 @@ import { createStore } from "vuex";
 import position from "./modules/position"; //gestisce le posizioni lavorative 
 import contact from "./modules/contact"; //gestisce i messaggi inviati dal form contatti 
 import { themedImages, pickRandom } from '@/utils/images' //immgini tematiche per i servizi
+import shop from './modules/shop' 
+
 
 // Esporto lo store così l'app può .use(store) in main.js
 export default createStore({
@@ -32,7 +34,7 @@ export default createStore({
           "Report performance con KPI",
           "Gestione community",
         ],
-
+    
         // consegne 
         deliverables: [
           "Piano editoriale",
@@ -248,7 +250,10 @@ export default createStore({
         
         ctaText: "Contattaci per saperne di più",
       },
+
     ],
+    
+  
   },
 
   // GETTERS: viste/computed globali
@@ -288,5 +293,9 @@ export default createStore({
   modules: {
     position, // modulo per posizioni lavorative
     contact,  // modulo per la sezione Contatti (gestione form e messaggi)
+    shop,
   },
+
+
 });
+
