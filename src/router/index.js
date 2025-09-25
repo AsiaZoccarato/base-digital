@@ -25,7 +25,7 @@ const routes = [
     props: true, //passa i parametri di rotta (slug ) come prop al component
   },
 
-  { path: "/clienti", component: () => import("@/views/Stub.vue") },
+  { path: "/clienti", name: "clienti", component: () => import("@/views/Client.vue") }, 
   // pagina placeholder caricata in lazy si potrà poi togliere alla fine 
   { path: "/contatti", component: () => import("@/views/ContactView.vue") },
   //pagina contatti in lazy loading, quindi caricata quando serve 
