@@ -38,16 +38,17 @@
         
         <!-- Video Section -->
         <div class="text-center mb-5">
+        <div class="ratio ratio-16x9" style="max-width: 640px; margin: 0 auto;">
           <video
               controls
               poster="/immagini/copertinayoutube.jpg"
               muted
-              class="img-fluid rounded"
-              style="max-width: 640px;" 
+              class="rounded"
           >
             <source src="/video/video.mp4" type="video/mp4">
             Il tuo browser non supporta il tag video.
           </video>
+        </div>
         </div>
 
         <!-- Post Grid -->
