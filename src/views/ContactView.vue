@@ -1,15 +1,15 @@
 <template>
-  <!--contenitore + griglia 
-  container py4 è il container bootstrap con padding verticale
-  row g4 è la spaziatura tra le colonne-->
+  <!--
+  container py4 è il container bootstrap con padding verticale-->
   <div class="container py-4">
     <div class="row g-4">
-      <!--colonna sx: form contattisu mobile prende tutta la larghezza; da lg in su metà pagina-->
+      <!--colonna sx: form contatti, su mobile tutta pagina-->
       <div class="col-12 col-lg-6">
         <h1 class="h4 mb-3">Contattaci</h1> <!--titolo del form-->
+
         <!--form: monta il componente e ascolta l'evento "sent" che emette il figlio-->
         <ContactForm @sent="onSent" /> 
-        <!--qui il fiflio contactfrom emette l'evento personalizzato sent quando l'invio
+        <!--qui il figlio contactfrom emette l'evento personalizzato sent quando l'invio
         è andato a buon fine; il padre lo intercetta e chiama onset()-->
       </div>
 
@@ -33,8 +33,8 @@
           </div>
         </div>
 
-        <!--inbox demo dei messaggi (sotto alla mappa)
-        mostra i messaggi "salvati nello store; è la simulazione del db"-->
+        <!--inbox demo dei messaggi 
+        mostra i messaggi "salvati nello store; simulazione del db-->
         <ContactInbox />
       </div>
     </div>
@@ -56,15 +56,14 @@ import ContactForm from '@/components/ContactForm.vue' //componente figlio con i
 import ContactInbox from '@/components/ContactInbox.vue' //componente figlio con la lista messaggi
 
 // stato reattivo locale per mostrare/nascondere il toast 
-//showtoast è un booleano reattivo; false non è visibile; true è visibile 
+
 const showToast = ref(false)
 
 // callback quando ContactForm emette "sent"
-//appena arriva l'evento il toast diventa true, quindi visibile
-//il toast è visibile per due secondi, poi torna a false e scompare 
+
 function onSent(){
-  showToast.value = true
-  setTimeout(() => showToast.value = false, 2000)
+  showToast.value = true //appena arriva l'evento il toast diventa true, quindi visibile
+  setTimeout(() => showToast.value = false, 2000) //il toast è visibile per due secondi, poi torna a false e scompare 
 }
 </script>
 

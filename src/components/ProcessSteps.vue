@@ -1,6 +1,6 @@
 <template>
     <!--sezione dove spieghiamo il nostro approccio in 4 step-->
-  <section class="container my-5"> <!--sezione contenitore con spaziatura verticale-->
+  <section class="container my-5"> 
     <!--intestazione centrata: titolo + sottotitolo-->
     <div class="text-center mb-4">
       <h2 class="h4 mb-2">Come lavoriamo (in breve)</h2>
@@ -11,24 +11,24 @@
     <!--grigilia responsive con boostrap-->
     <div class="row g-4">
       
-      <!--ogni setp è una colonna con classi responsive:
-      col12 su mobile ogni step occupa tutta la riga
-      col md 6 su tablet divido in due le colonne
-      col lg 3 su desktop largo divido in quattro colonne-->
+      <!--ogni setp è una colonna con classi responsive:-->
 
       <!--ogni setp è dentro una card h100 e border 0
-      h100 fa si che tutte le card abbiano la stessa altezza
-      borer0 toglie il bordo di default-->
+      h100 fa -->
+
       <!--STEP 1-->
       <div class="col-12 col-md-6 col-lg-3">
         <!--card flat con border 0 e h-100 per avere tutte le card alla stessa altezza-->
         <div class="card h-100 border-0">
           <div class="card-body">
             <!--dentro card body abbiamo un numero grande + un titolo breve + descrizione concisa -->
+
             <!--numero grande come indicatore dello step-->
             <div class="display-6 mb-2">1</div>
+
             <!--titolo breve dello step-->
             <h3 class="h6">Brief & Obiettivi</h3>
+
             <!--descrizione concisa -->
             <p class="text-muted mb-0">Analisi iniziale, KPI condivisi, baseline e target.</p>
           </div>
@@ -69,5 +69,4 @@
   </section>
 </template>
 
-<!--IN SINTESI
-Orienta subito l'utente e fa capire come lavora base diggital senza avere pagine lunghe da leggere-->
+

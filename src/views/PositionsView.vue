@@ -1,9 +1,14 @@
 <template>
   <main class="container py-4">
-    <h1 class="h3 mb-4 text-center">Le posizioni aperte pubblicate da Base Digital</h1>
+    <h1 class="h3 mb-4 text-center">
+      Le posizioni aperte pubblicate da Base Digital
+    </h1>
     <div class="row">
       <div class="col-md-3 card h-100 shadow-sm p-3 mb-4 mt-4">
-        <div id="searchPositionQuery" class="mb-4 align-items-center position-relative">
+        <div
+          id="searchPositionQuery"
+          class="mb-4 align-items-center position-relative"
+        >
           <label for="position-input" class="form-label">
             Ricerca la tua posizione:
           </label>
@@ -51,10 +56,6 @@
         </div>
       </div>
       <div class="col-md-9 mb-4 mt-4">
-          <div v-if="isLoggedIn" class="mb-4">
-    <button class="btn btn-primary" @click="showNewPosition">Aggiungi Posizione</button>
-  </div>
-		
         <NewPositionModal v-model:show="showNewPositionDialog" />
 
         <PositionsAccordion
@@ -65,8 +66,14 @@
           :filter-city="searchCityQuery"
           :filter-area="searchAreaQuery"
           :filter-seniority="searchSeniorityQuery"
+          :is-logged-in="isLoggedIn"
         >
         </PositionsAccordion>
+        <div v-if="isLoggedIn" class="mb-4 mt-4 d-flex justify-content-end">
+          <button class="btn btn-primary" @click="showNewPosition">
+            Aggiungi Posizione
+          </button>
+        </div>
       </div>
     </div>
   </main>
@@ -77,13 +84,11 @@ import { useStore } from "vuex"; // per accedere allo store globale
 import PositionsAccordion from "@/components/PositionsAccordion.vue";
 import NewPositionModal from "@/components/NewPositionModal.vue";
 
-
 const store = useStore();
 const positions = computed(() => {
-	 
-      // Carica i dati da localStorage nello store Vuex all'avvio
-      store.dispatch('position/loadPositionsFromStorage', null, { root: true });
-	return store.getters["position/getAllPositions"];
+  // Carica i dati da localStorage nello store Vuex all'avvio
+  store.dispatch("position/loadPositionsFromStorage", null, { root: true });
+  return store.getters["position/getAllPositions"];
 });
 
 const isLoggedIn = ref(false);

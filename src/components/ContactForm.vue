@@ -1,5 +1,5 @@
 <template>
-  <!--form: intercetta il submit, evita il reload della pagina e usa la funzione submit -->
+  <!--form -->
   <form @submit.prevent="submit" novalidate>
     <div class="mb-3">
       <!--campo nome e cognome-->
@@ -14,17 +14,7 @@
     <!--campo email-->
     <div class="mb-3">
       <label class="form-label">Email</label>
-      <!--type email + regex nel validator; classi dinamiche con v('email')-->
-      <!--le classi dinamiche cosa sono: 
-      in boostrap i campi hanno classi come is-valid o is invalid; 
-      :class calcola dinmicameente la classe css in base a una funzione
-      la funzione v('name') restituisce is valid, is invalid o stringa vuota 
-      in pratica vue aggiunge automaticamente la classe giusta al campo mentre scrivi
-      
-      per es: se scrivi An(2 lettere) non passa la regola del >=3, quindi il campo ha class is-invalid (bordo rosso)
-      se scrivo "anna" allora è is valid, quindi verde
-      se non scrivo niente, allora stringa vuota -->
-      <input v-model.trim="form.email" type="email" class="form-control" :class="v('email')" required>
+          <input v-model.trim="form.email" type="email" class="form-control" :class="v('email')" required>
       <div class="invalid-feedback">Inserisci un’email valida.</div>
     </div>
 
@@ -33,7 +23,7 @@
       <!--intestazione + contatore live-->
       <label class="form-label d-flex justify-content-between">
         <span>Messaggio</span>
-        <small class="text-muted">{{ form.message.length }}/500</small> <!--esempio di string interpolation-->
+        <small class="text-muted">{{ form.message.length }}/500</small> 
       </label>
       <!--textarea vincolata a 500 char; classi dinamiche; rows= 4-->
       <textarea v-model="form.message" class="form-control" :class="v('message')" rows="4" maxlength="500" required />
@@ -43,8 +33,10 @@
     <!--scelta canale di ricontatto-->
     <div class="mb-3">
       <label class="form-label">Come preferisci essere ricontattatə?</label>
+
       <!--toggle radio stile btngorup di bootstrap-->
       <div class="btn-group w-100">
+
         <!--radio nascota che setta channel='email'-->
         <input class="btn-check" type="radio" id="c1" value="email" v-model="form.channel">
         <label class="btn btn-outline-primary" for="c1">Email</label>
@@ -62,7 +54,7 @@
       <div class="invalid-feedback">Inserisci un numero valido (min 7 cifre).</div>
     </div>
 
-    <!--upload allegati (solo preview del nome, l'invio reale non è gestito qui)-->
+    <!--upload allegati (solo preview, è demo)-->
     <div class="mb-3">
       <label class="form-label">Allegati (opzionale)</label>
       <input type="file" class="form-control" @change="onFile">
@@ -77,7 +69,7 @@
       <div class="invalid-feedback">Devi accettare la privacy.</div>
     </div>
 
-    <!--pulsante di invio: disabilitato durante l'invio (con spinner)-->
+    <!--pulsante di invio: disabilitato durante l'invio -->
     <button class="btn btn-primary" :disabled="sending">
       <span v-if="sending" class="spinner-border spinner-border-sm me-2"></span>
       Invia
@@ -100,10 +92,6 @@ const sending = computed(() => store.state.contact.sending)
 //stato locale del form (reactive per avere reattività su tutte le chiavi)
 //form è un oggetto reattivo grazie a reactive di vue; 
 //ogni campo del form è legato a una proprietà di form tramite v-model
-//per ex. text-area v-model="form.message" significa che: 
-// - quando scrivi nel campo textarea il valore va a finire in form.message
-// - se form.message cambia da codice, il textarea si aggiorna automaticamente
-//quindi form message length è la lunghezza del campo digitato
 const form = reactive({
   name: '', email: '', message: '', channel: 'email',
   phone: '', privacy: false, attachment: null
@@ -121,7 +109,7 @@ function onFile(e){
 // validazioni di base centralizzate (computed cosi si aggiorna in tempo reale )
 const isValid = computed(() => {
   const nameOk = form.name.length >= 3 //nome minimo 3 caratteri
-  const emailOk = /\S+@\S+\.\S+/.test(form.email) //regex semplice per email --> regex è uno strumento per veririficare o cercare testi secondo regole precise 
+  const emailOk = /\S+@\S+\.\S+/.test(form.email) //regex semplice per email
   const msgOk = form.message.length >= 10 //messaggio minimo 10 cratteri 
   const phoneOk = form.channel === 'email' || (form.phone.replace(/\D/g,'').length >= 7) //se email, telefono non richiesto
   const privacyOk = form.privacy === true //privacy deve essere spuntata 

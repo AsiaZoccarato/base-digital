@@ -1,6 +1,10 @@
 <template>
   <div class="accordion" id="positionsAccordion" v-if="filteredData.length">
-    <div class="accordion-item" v-for="(entry, index) in filteredData" :key="entry.slug">
+    <div
+      class="accordion-item"
+      v-for="(entry, index) in filteredData"
+      :key="entry.slug"
+    >
       <h2 class="accordion-header" :id="`heading-${index}`">
         <!--esempio di evento-->
         <button
@@ -14,44 +18,83 @@
           {{ entry.seniority }} {{ entry.title }}
         </button>
       </h2>
-       <div
+      <div
         :id="`collapse-${index}`"
         class="accordion-collapse collapse"
         :class="{ show: isOpen[index] }"
         :aria-labelledby="`heading-${index}`"
-        data-bs-parent="#positionsAccordion">
+        data-bs-parent="#positionsAccordion"
+      >
         <div class="accordion-body">
           <dl class="row mb-0">
             <template v-for="key in columns" :key="key">
               <dt class="col-sm-4 fw-semibold">{{ columnsLabels[key] }}</dt>
-              <dd class="col-sm-8">{{ entry[key] }}</dd>
+              <dd class="col-sm-8">{{ entry[key] || "-" }}</dd>
             </template>
           </dl>
-          <button class="btn btn-primary mt-3 mr-5" @click="goToPosition(entry.slug)">
-            Visualizza Dettagli
-          </button>
-           <button class="btn btn-primary mt-3" @click="deletePosition(entry.slug)">
-            Cancella Posizione
-          </button>
+          <div class="btn-row mt-3 d-flex justify-content-end">
+            <button
+              class="btn btn-primary mt-3 mr-5"
+              @click="goToPosition(entry.slug)"
+            >
+              Visualizza Dettagli
+            </button>
+
+            <button
+              v-if="isLoggedIn"
+              class="btn btn-primary mt-3"
+              @click="confirmDelete(entry.slug)"
+            >
+              Cancella Posizione
+            </button>
+          </div>
+          <v-dialog v-model="confirmDialogVisible" max-width="400">
+            <v-card color="white" class="mx-auto" max-width="400">
+              <v-card-title class="headline"
+                >Conferma cancellazione</v-card-title
+              >
+              <v-card-text
+                >Sei sicuro di voler cancellare questa posizione?</v-card-text
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  class="text-none mb-4"
+                  text
+                  @click="confirmDialogVisible = false"
+                  >Annulla</v-btn
+                >
+                <v-btn
+                  color="red"
+                  class="text-none mb-4"
+                  text
+                  @click="deleteConfirmed"
+                  >Conferma</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </div>
       </div>
     </div>
   </div>
-  
-  <div v-if="filteredData.length" class="card mt-3"> 
-    <h4 class="card-text w-75 m-2 ">Posizioni trovate : {{ filteredData.length }}</h4>
-</div>
-  
-  <div v-else="filteredData.length" class="card mt-3"> 
-    <h4 class="card-text w-75 m-2 ">Posizioni trovate : 0</h4>
-</div>
+
+  <div v-if="filteredData.length" class="card mt-3">
+    <h4 class="card-text w-75 m-2">
+      Posizioni trovate : {{ filteredData.length }}
+    </h4>
+  </div>
+
+  <div v-else="filteredData.length" class="card mt-3">
+    <h4 class="card-text w-75 m-2">Posizioni trovate : 0</h4>
+  </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const router = useRouter();
 const store = useStore();
@@ -62,41 +105,42 @@ const props = defineProps({
   columnsLabels: Object,
   filterPosition: String,
   filterCity: String,
-  filterArea: String, 
+  filterArea: String,
   filterSeniority: String,
+  isLoggedIn: Boolean,
 });
 
 const filteredData = computed(() => {
-  let { data, filterPosition, filterCity, filterArea, filterSeniority } = props
+  let { data, filterPosition, filterCity, filterArea, filterSeniority } = props;
   if (filterPosition) {
-    filterPosition = filterPosition.toLowerCase()
+    filterPosition = filterPosition.toLowerCase();
     data = data.filter((row) => {
-    
-        return String(row['title']).toLowerCase().indexOf(filterPosition) > -1
-      
-    })
+      return String(row["title"]).toLowerCase().indexOf(filterPosition) > -1;
+    });
   }
-  if (filterCity && filterCity !== 'Tutte le località') {
-    filterCity = filterCity.toLowerCase()
+  if (filterCity && filterCity !== "Tutte le località") {
+    filterCity = filterCity.toLowerCase();
     data = data.filter((row) => {
-        return String(row['city']).toLowerCase().indexOf(filterCity) > -1
-    })
+      return String(row["city"]).toLowerCase().indexOf(filterCity) > -1;
+    });
   }
-  if (filterArea && filterArea !== 'Tutte le aree') {
-    filterArea = filterArea.toLowerCase()
+  if (filterArea && filterArea !== "Tutte le aree") {
+    filterArea = filterArea.toLowerCase();
     data = data.filter((row) => {
-        return String(row['area']).toLowerCase().indexOf(filterArea) > -1
-    })
+      return String(row["area"]).toLowerCase().indexOf(filterArea) > -1;
+    });
   }
 
-  if (filterSeniority && filterSeniority !== 'Tutti i livelli') {
-    filterSeniority = filterSeniority.toLowerCase()
+  if (filterSeniority && filterSeniority !== "Tutti i livelli") {
+    filterSeniority = filterSeniority.toLowerCase();
     data = data.filter((row) => {
-        return String(row['seniority']).toLowerCase().indexOf(filterSeniority) > -1;
-    })
+      return (
+        String(row["seniority"]).toLowerCase().indexOf(filterSeniority) > -1
+      );
+    });
   }
-  return data
-})
+  return data;
+});
 
 const isOpen = ref({});
 function toggleAccordion(index) {
@@ -104,10 +148,21 @@ function toggleAccordion(index) {
 }
 
 function goToPosition(slug) {
-  router.push(`/positions/${slug}`)
+  router.push(`/positions/${slug}`);
 }
+const confirmDialogVisible = ref(false);
+const slugToDelete = ref(null);
 
+function confirmDelete(slug) {
+  slugToDelete.value = slug;
+  confirmDialogVisible.value = true;
+}
+function deleteConfirmed() {
+  confirmDialogVisible.value = false;
+  deletePosition(slugToDelete.value);
+  slugToDelete.value = null;
+}
 function deletePosition(slug) {
-    store.dispatch('position/deletePositionAndPersist', slug, { root: true });
+  store.dispatch("position/deletePositionAndPersist", slug, { root: true });
 }
 </script>

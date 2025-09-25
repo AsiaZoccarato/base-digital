@@ -25,20 +25,9 @@
 // RouterLink è usato nel template per il bottone "Contattaci"
 import { RouterLink } from "vue-router";
 
-// Componenti usati nella home:
-// - HeroCompact: header con carousel (Bootstrap)
-// - AboutIntro: micro-presentazione dell'agenzia con link a /about
-// - ProcessSteps: i 4 step del nostro approccio (brief → strategia → go-live → optimize)
-// - TestimonialCarousel: carosello delle recensioni
-import HeroCompact from "@/components/HeroCompact.vue";
-import AboutIntro from "@/components/AboutIntro.vue";
-import ProcessSteps from "@/components/ProcessSteps.vue";
-import TestimonialCarousel from "@/components/TestimonialCarousel.vue";
-</script>
-<!--homeview è la vista principale del sito, cioè la "homepage"
-in vuerouter ogni "pagina" è una view che viene montata in base all'URL:
-- / mostra homeview.vue
-- /about mostra about.view
-- /shop mostra shopview.vue ecc.
 
-quindi homeview è il punto di ingresso per chi apre il sito su httplocalhost-->
+import HeroCompact from "@/components/HeroCompact.vue"; // HeroCompact: header con carousel (Bootstrap)
+import AboutIntro from "@/components/AboutIntro.vue"; // AboutIntro: micro-presentazione dell'agenzia con link a /about
+import ProcessSteps from "@/components/ProcessSteps.vue"; // ProcessSteps: i 4 step del nostro approccio 
+import TestimonialCarousel from "@/components/TestimonialCarousel.vue"; //  carosello delle recensioni
+</script>

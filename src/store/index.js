@@ -256,7 +256,7 @@ export default createStore({
   
   },
 
-  // GETTERS: viste/computed globali
+  
 
   getters: {
     // Restituisce tutti i servizi (usato da ServicesView / ServicesGrid)
@@ -268,13 +268,14 @@ export default createStore({
 
     //  Ricerca semplice per titolo/desc/tags
     searchServices: (state) => (query) => {
-      //1) normalizzazione input: se null/undefined -> "", minuscole, senza spazi ai lati 
-      const q = (query || "").toLowerCase().trim(); //case insenstivi, cioè non fa differenze tra maiscuole e minuscole e ignora gli spazi
+      // normalizzazione input: se null/undefined -> "", minuscole, senza spazi ai lati 
+      const q = (query || "").toLowerCase().trim(); //case insensitive
+   
 
-      //2) caso vuoto: se l'utente non ha digitato nulla restituisci tutti i servizi 
+      // caso vuoto: se l'utente non ha digitato nulla restituisci tutti i servizi 
       if (!q) return state.services;
 
-      //3) filtro: tieni solo i servizi che corrispondono alla ricerca 
+      // filtro: tieni solo i servizi che corrispondono alla ricerca 
       return state.services.filter((s) => {
         return (
           //match sul titolo 
@@ -287,9 +288,7 @@ export default createStore({
       });
     },
   },
-  // ----------------------
-  // MODULES: suddivisione logica dello store
-  // ----------------------
+ 
   modules: {
     position, // modulo per posizioni lavorative
     contact,  // modulo per la sezione Contatti (gestione form e messaggi)
