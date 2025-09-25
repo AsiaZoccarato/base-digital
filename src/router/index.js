@@ -8,6 +8,8 @@ import ServiceDetailView from "@/views/ServiceDetailView.vue";
 import PositionsView from "@/views/PositionsView.vue";
 import PositionDetailView from "@/views/PositionDetailView.vue";
 
+
+
 //collegamenti con le varie pagine come se fossero link
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -57,8 +59,20 @@ const routes = [
   name: 'Dashboard',
   component: () => import('@/views/DashboardView.vue'),
   meta: { requiresAuth: true } // Richiede login
-}
+  },
   //rotta per la dashboard interna all'area di login
+
+  {
+  path: '/shop',
+  name: 'Shop',
+  component: () => import('@/views/ShopView.vue') // il componente che mostrerà la pagina Shop
+  },
+{
+    path: '/shop/:slug',
+    name: 'ProductDetail',
+    component: () => import('@/views/ProductDetailView.vue'),
+    props: true
+  },
 
 ];
 

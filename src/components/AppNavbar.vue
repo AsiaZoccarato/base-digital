@@ -51,14 +51,22 @@
           msg lg3 è il margine sx extra da dekstop in su
           btn btn è il bottone blu piccolo con bordi tondi e padding-->
           <li class="nav-item ms-lg-3">
-            <RouterLink class="btn btn-sm btn-primary rounded-pill px-3" to="/contatti">
+            <RouterLink class="btn btn-sm btn-primary rounded-pill px-3 me-2 mb-2" to="/contatti">
               Contattaci
             </RouterLink>
-            </li>
+          </li>
+
           <li class="nav-item ms-lg-3">
-            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/login">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2 mb-2" to="/login">
               <i class="bi bi-person-circle me-1"></i>
               Area riservata
+            </RouterLink>
+          </li>
+
+          <li class="nav-item ms-lg-3">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2 mb-2" to="/shop">
+            <i class="bi bi-cart me-1"></i>
+              Shop
             </RouterLink>
           </li>
         </ul>
