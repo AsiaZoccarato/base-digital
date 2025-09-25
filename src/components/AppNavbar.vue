@@ -10,6 +10,7 @@
         routerlink sono i link gestiti da router (non ricarica la pagina)
         d flex align items center gap 2 sono il logo e il testo affiancati con spazio-->
       <RouterLink class="navbar-brand d-flex align-items-center gap-2" to="/"> <!--"/" è la rotta principale, cioè la home definita in router-->
+       
         <img src="/immagini/logo.png" alt="Logo" height="28" />
         <span class="fw-semibold">Base Digital</span>
       </RouterLink>
@@ -52,6 +53,12 @@
           <li class="nav-item ms-lg-3">
             <RouterLink class="btn btn-sm btn-primary rounded-pill px-3" to="/contatti">
               Contattaci
+            </RouterLink>
+            </li>
+          <li class="nav-item ms-lg-3">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/login">
+              <i class="bi bi-person-circle me-1"></i>
+              Area riservata
             </RouterLink>
           </li>
         </ul>
@@ -108,4 +115,3 @@ scoped vuol dire che questo stile è applicato solo a questa pagina*/
   text-underline-offset: 4px;
 }
 </style>
-

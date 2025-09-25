@@ -48,6 +48,18 @@ const routes = [
     name: "position-detail",
     component: PositionDetailView, //dettaglio posizione con param dinamico:slug 
   },
+
+  { path: '/login', name: 'Login', component: () => import('@/views/LoginView.vue')},
+  //rotta per la pagina di login
+  
+  {
+  path: '/dashboard',
+  name: 'Dashboard',
+  component: () => import('@/views/DashboardView.vue'),
+  meta: { requiresAuth: true } // Richiede login
+}
+  //rotta per la dashboard interna all'area di login
+
 ];
 
 const router = createRouter({
