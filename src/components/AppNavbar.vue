@@ -1,84 +1,65 @@
 <template>
+    <!--barra di navigazione boostrap
+    expang lg è il menù espanso da dekstop, che poi diventa burger suu mobile
+    bg white è lo sfondo bianco
+    border bottom è la riga sottile di separazione
+    sticky top cioè la navbar rimane fissa durante lo scroll-->
   <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
     <div class="container">
-      <!-- Logo con attribute building dinamici
-       attribute binding che permette di collegare dinamicamente 
-       gli attributi html ai dati js
-       class e to sono statici
-       aria label e title sono dinamici (cambiano in basei ai dati) -->
-      <RouterLink 
-        class="navbar-brand d-flex align-items-center gap-2" 
-        to="/"
-        :aria-label="logoAriaLabel"
-        :title="logoTitle"
-      > 
-      <!--img con tutti gli attributi abbiamo in ordine
-      url dell'immagine
-      testo alternativo
-      altezza in pixel
-      larghezza che può essere null
-      strategia di caricamento
-      modalità decodifica
-      classi css dinamiche
-      stili inline dinamici 
-      event listener per gli errori 
-      event listener per caricamento-->
-        <img 
-          :src="logoSrc" 
-          :alt="logoAlt"
-          :height="logoHeight"
-          :width="logoWidth"
-          :loading="logoLoading"
-          :decoding="logoDecoding"
-          :class="logoClasses"
-          :style="logoStyles"
-          @error="handleLogoError"
-          @load="handleLogoLoad"
-        />
-
-        <!--importante qui usare il binding per
-        flessibilità: posso cambiare il logo in base al tema
-        reattività: gli attributi si aggiornano automaticamente
-        controllo: posso gestire stati-->
-        <span :class="brandTextClasses">{{ brandName }}</span>
+        <!--logo con nome azienda 
+        routerlink sono i link gestiti da router (non ricarica la pagina)
+        d flex align items center gap 2 sono il logo e il testo affiancati con spazio-->
+      <RouterLink class="navbar-brand d-flex align-items-center gap-2" to="/"> <!--"/" è la rotta principale, cioè la home definita in router-->
+       
+        <img src="/immagini/logo.png" alt="Logo" height="28" />
+        <span class="fw-semibold">Base Digital</span>
       </RouterLink>
 
-      <!-- Resto della navbar... -->
+      <!--pulsante hamburger visibile solo su mobile
+      data bs toggle collapse ecc. serve per aprire e chiudere il menu -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!--contenitore del menu, collassabile su mobile-->
       <div id="mainNav" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item">
+        <ul class="navbar-nav ms-auto align-items-lg-center"> <!--ul lista di voci di navigazione con ms auto che spinge le voci di menu verso dx e align items le allinea su dekstop-->
+          <!--singole voci del menu-->
+            <li class="nav-item">
             <RouterLink class="nav-link" to="/">Home</RouterLink>
           </li>
+
           <li class="nav-item">
             <RouterLink class="nav-link" to="/about">Chi siamo</RouterLink>
           </li>
+
           <li class="nav-item">
             <RouterLink class="nav-link" to="/servizi">Servizi</RouterLink>
           </li>
+
           <li class="nav-item">
             <RouterLink class="nav-link" to="/clienti">Clienti</RouterLink>
           </li>
+
           <li class="nav-item">
             <RouterLink class="nav-link" to="/positions">Lavora con noi</RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink class="nav-link" to="/news">News</RouterLink>
           </li>
+          <!--bottone evidenziato a dx (CTA)
+          msg lg3 è il margine sx extra da dekstop in su
+          btn btn è il bottone blu piccolo con bordi tondi e padding-->
           <li class="nav-item ms-lg-3">
             <RouterLink class="btn btn-sm btn-primary rounded-pill px-3" to="/contatti">
               Contattaci
             </RouterLink>
-          </li>
+            </li>
           <li class="nav-item ms-lg-3">
-            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/dashboard">
+            <RouterLink class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" to="/login">
               <i class="bi bi-person-circle me-1"></i>
               Area riservata
             </RouterLink>
-            <!-- il bottone dell'area riservata ti manda alla vista DashboardView.vue, che a sua volta ti reindirizza automaticamente al login se non sei loggato. Se invece hai già fatto il login (e quindi sei nella dashboard), premendo sul bottone rimani sempre sulla dashboard -->
           </li>
         </ul>
       </div>
@@ -87,207 +68,50 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useRouter } from 'vue-router'
-import Collapse from 'bootstrap/js/dist/collapse'
+import { onMounted, onBeforeUnmount } from 'vue' //onmounted e onbeforeunmount sono hook del ciclo di vita per inizializzare e pulire
+//quando il componente navbar si monta e smonta 
+import { useRouter } from 'vue-router' //userouter da l'istanza del router per ascoltare i cambi pagina
+import Collapse from 'bootstrap/js/dist/collapse' // collapse è il plugin js di boostrap
+//serve per aprire/chiudere le aree collassabili (come il menu mobile)
 
 const router = useRouter()
-let collapse
-let unreg
-
-// Props per personalizzare il logo 
-// cosa fa questa props: definisce i parametri che il logo può ricevere
-// theme: determina il tema, cioè quale versione del logo usare
-// size: determina la dimensione del logo
-// validator: assicura valori corretti 
-const props = defineProps({
-  theme: {
-    type: String,
-    default: 'default',
-    validator: (value) => ['default', 'dark', 'light', 'compact'].includes(value)
-  },
-  size: {
-    type: String,
-    default: 'normal',
-    validator: (value) => ['small', 'normal', 'large'].includes(value)
-  }
-})
-
-// Stati reattivi
-const logoLoaded = ref(false) //stato: logo caricato??
-const logoError = ref(false) // stato: errore nel caricamento??
-const isScrolled = ref(false) // stato: pagina scrollata?? 
-
-// Configurazione del logo basata sui props e stato
-const logoConfig = computed(() => {
-  const configs = {
-    default: {
-      src: '/immagini/logo.png',
-      alt: 'Base Digital - Logo aziendale',
-      height: props.size === 'small' ? 24 : props.size === 'large' ? 32 : 28,
-      width: null, // auto-calcolato
-      classes: ['logo-default'],
-      brandClasses: ['fw-semibold']
-    },
-    dark: {
-      src: '/immagini/logo-dark.png',
-      alt: 'Base Digital - Logo versione scura',
-      height: props.size === 'small' ? 24 : props.size === 'large' ? 32 : 28,
-      width: null,
-      classes: ['logo-dark'],
-      brandClasses: ['fw-semibold', 'text-white']
-    },
-    light: {
-      src: '/immagini/logo-light.png',
-      alt: 'Base Digital - Logo versione chiara',
-      height: props.size === 'small' ? 24 : props.size === 'large' ? 32 : 28,
-      width: null,
-      classes: ['logo-light'],
-      brandClasses: ['fw-semibold', 'text-dark']
-    },
-    compact: {
-      src: '/immagini/logo-compact.png',
-      alt: 'BD - Logo compatto',
-      height: 24,
-      width: 24,
-      classes: ['logo-compact'],
-      brandClasses: ['d-none', 'd-md-inline'] // Nasconde testo su mobile
-    }
-  }
-  
-  return configs[props.theme] || configs.default
-})
-
-// Computed properties per gli attributi del logo
-const logoSrc = computed(() => logoConfig.value.src)
-const logoAlt = computed(() => logoConfig.value.alt)
-const logoHeight = computed(() => logoConfig.value.height)
-const logoWidth = computed(() => logoConfig.value.width)
-const logoLoading = computed(() => 'eager') // o 'lazy' per lazy loading
-const logoDecoding = computed(() => 'async')
-
-const logoClasses = computed(() => {
-  const classes = [...logoConfig.value.classes]
-  
-  if (logoError.value) classes.push('logo-error')
-  if (logoLoaded.value) classes.push('logo-loaded')
-  if (isScrolled.value) classes.push('logo-scrolled')
-  
-  return classes.join(' ')
-})
-
-const logoStyles = computed(() => {
-  const styles = {}
-  
-  // Esempio di stili dinamici
-  if (isScrolled.value && props.size !== 'compact') {
-    styles.transform = 'scale(0.9)'
-    styles.transition = 'transform 0.2s ease'
-  }
-  
-  return styles
-})
-
-const brandTextClasses = computed(() => {
-  const classes = [...logoConfig.value.brandClasses]
-  
-  if (isScrolled.value) classes.push('brand-scrolled')
-  
-  return classes.join(' ')
-})
-
-// Attributi aggiuntivi
-const logoAriaLabel = computed(() => `${logoConfig.value.alt} - Vai alla homepage`)
-const logoTitle = computed(() => 'Clicca per tornare alla homepage')
-const brandName = computed(() => props.theme === 'compact' ? 'BD' : 'Base Digital')
-
-// Event handlers
-const handleLogoError = () => {
-  logoError.value = true
-  console.warn('Errore nel caricamento del logo')
-}
-
-const handleLogoLoad = () => {
-  logoLoaded.value = true
-}
-
-// Gestione scroll per effetti dinamici
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
-}
+let collapse // istanza che serve per memorizzare il boostrap collapse 
+let unreg // qui eventualmente salveremo la funzione di cleanup del router look  
 
 onMounted(() => {
-  const el = document.getElementById('mainNav')
+  const el = document.getElementById('mainNav') // prende il contenitore del menu collassabile 
   if (el) {
-    collapse = new Collapse(el, { toggle: false })
+    // crea l'istanza del collapse senza triggerarlo subito (con toggle false)
+    collapse = new Collapse(el, { toggle: false }) //crea il controller js per quel pannello
+    //toggle:false non aprire/chiudere automaticamente all'init
   }
 
-  const off = router.afterEach(() => {
+  // ad ogni cambio di rotta (quando l'utente fa click su una voce di menu)
+  //chiude il pannello del burger menu se è aperto
+  const off = router.afterEach(() => { //si attiva dopo ogni navigazione. qui richiamo hide
+    //per chiudere il burger menu quando l'utente sceglie una voce 
+    //try e catch evita errori se l'istanza non esiste piu per qualche motivo 
     try { collapse?.hide() } catch (_) {}
   })
+  // salva la funzione di cleanup
   unreg = () => off()
-
-  // Aggiungi listener per scroll
-  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
-onBeforeUnmount(() => {
+onBeforeUnmount(() => { 
+  //se avevamo una funzione di cleanup del router hook la richiamiamo 
   unreg?.()
+  //rimuoviamo il riferimento all'istanza 
   collapse = null
-  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
+
 <style scoped>
-/* Stili base per il logo */
-.logo-default,
-.logo-dark,
-.logo-light,
-.logo-compact {
-  transition: all 0.2s ease;
-}
-
-.logo-error {
-  opacity: 0.5;
-  filter: grayscale(100%);
-}
-
-.logo-loaded {
-  opacity: 1;
-}
-
-.logo-scrolled {
-  transform: scale(0.9);
-}
-
-.brand-scrolled {
-  font-size: 0.9em;
-}
-
-/* Hover effects */
-.navbar-brand:hover .logo-default,
-.navbar-brand:hover .logo-dark,
-.navbar-brand:hover .logo-light {
-  transform: scale(1.05);
-}
-
-.navbar-brand:hover .logo-compact {
-  transform: rotate(5deg);
-}
-
-/* Evidenzia la voce attiva */
+/* evidenzia la voce attiva 
+scoped vuol dire che questo stile è applicato solo a questa pagina*/
 .nav-link.router-link-active {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .logo-default,
-  .logo-dark,
-  .logo-light {
-    height: 24px;
-  }
 }
 </style>
