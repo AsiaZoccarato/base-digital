@@ -8,10 +8,6 @@
           label="Titolo"
           required
           placeholder="Inserisci il titolo della posizione"
-          :class="{
-            'border-danger': !form.title,
-            'border-success': form.title,
-          }"
         />
         <v-text-field
           v-model="form.city"
