@@ -2,6 +2,7 @@
   <div class="accordion" id="positionsAccordion" v-if="filteredData.length">
     <div class="accordion-item" v-for="(entry, index) in filteredData" :key="entry.slug">
       <h2 class="accordion-header" :id="`heading-${index}`">
+        <!--esempio di evento-->
         <button
           class="accordion-button"
           type="button"

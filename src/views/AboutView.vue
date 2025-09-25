@@ -3,7 +3,7 @@
     <!-- Sezione introduttiva -->
     <section class="container py-5">
       <div class="row justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-12 col-lg-10">
           <h1 class="text-center display-4 mb-5">La nostra storia</h1>
           <p class="fs-5 text-justify lh-lg">
             Nel 2019 ci siamo incontrate tra i libri e abbiamo deciso di iniziare un'avventura insieme. Nel 2020, unendo le nostre forze, abbiamo fondato l'agenzia che sognavamo da tempo con il desiderio di fare delle nostre più grandi passioni il nostro lavoro quotidiano.<br>
@@ -35,11 +35,11 @@
     <!-- CTA finale -->
     <section class="container py-5">
       <div class="row justify-content-center">
-        <div class="col-lg-6 text-center">
+        <div class="col-12 col-lg-6 text-center">
           <h3 class="mb-4">Vuoi saperne di più?</h3>
           <RouterLink 
             to="/contatti" 
-            class="btn btn-primary btn-lg px-4 py-2" 
+            class="btn btn-primary btn-lg" 
           > <!-- btn = classe Bootstrap per il bottone. RouterLink per la navigazione interna -->
             Contattaci
           </RouterLink>
@@ -113,9 +113,3 @@ export default {
   }
 }
 </script>
-
-<style scoped> /* scoped = utilizzo lo stile in CSS solo in questa vista */
-.text-justify {
-  text-align: justify;
-}
-</style>
