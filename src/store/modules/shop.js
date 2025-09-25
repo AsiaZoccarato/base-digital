@@ -7,9 +7,9 @@ state: () => ({
   products: [
     {
       slug: 'white-code',
-      name: 'Cappello “White Code”',
-      image: '/immagini/CappelloBianco.png',
-      description: 'Il cappello “clean design”: minimal, elegante e ottimizzato per proteggerti dai bug… ops, dai raggi del sole ;)',
+      name: 'Magliatta “White Code”',
+      image: '/immagini/MagliettaBianca.png',
+      description: 'La Maglietta “clean design”: minimal, elegante e ottimizzato per proteggerti dai bug… ops, dai raggi del sole ;)',
       price: '€12'
     },
     {
