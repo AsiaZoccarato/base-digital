@@ -1,9 +1,10 @@
 <template>
   <v-dialog v-model="dialogVisible" max-width="600">
     <v-card
-      class="mx-auto px-6 py-6"
-      max-width="344"
+      class="mx-auto px-5 py-4"
+      max-width="600"
       title="Aggiungi posizione"
+      rounded-xl
     >
       <v-form>
         <v-text-field
@@ -34,7 +35,6 @@
           label="Livello"
           :items="seniorityOptions"
           color="primary"
-          clearable
           placeholder="Inserisci il livello di seniority"
         ></v-select>
         <v-textarea
