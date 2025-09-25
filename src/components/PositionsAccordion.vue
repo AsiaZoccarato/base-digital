@@ -13,7 +13,6 @@
           {{ entry.seniority }} {{ entry.title }}
         </button>
       </h2>
-      
        <div
         :id="`collapse-${index}`"
         class="accordion-collapse collapse"
@@ -27,8 +26,11 @@
               <dd class="col-sm-8">{{ entry[key] }}</dd>
             </template>
           </dl>
-          <button class="btn btn-primary mt-3" @click="goToPosition(entry.slug)">
+          <button class="btn btn-primary mt-3 mr-5" @click="goToPosition(entry.slug)">
             Visualizza Dettagli
+          </button>
+           <button class="btn btn-primary mt-3" @click="deletePosition(entry.slug)">
+            Cancella Posizione
           </button>
         </div>
       </div>
@@ -47,9 +49,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 
 const router = useRouter();
+const store = useStore();
 
 const props = defineProps({
   data: Array,
@@ -100,5 +104,9 @@ function toggleAccordion(index) {
 
 function goToPosition(slug) {
   router.push(`/positions/${slug}`)
+}
+
+function deletePosition(slug) {
+    store.dispatch('position/deletePositionAndPersist', slug, { root: true });
 }
 </script>

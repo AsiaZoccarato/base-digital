@@ -229,11 +229,34 @@ const getters = {
     state.positions.find((p) => p.slug === slug),
 };
 
-const actions = {};
+const actions = {
+  addPositionAndPersist({ commit, state }, newPosition) {
+    commit("addPosition", newPosition);
+    localStorage.setItem("positions", JSON.stringify(state.positions));
+  },
+  deletePositionAndPersist({ commit, state }, slug) {
+    commit("deletePosition", slug);
+    localStorage.setItem("positions", JSON.stringify(state.positions));
+  },
+  loadPositionsFromStorage({ commit }) {
+    const stored = localStorage.getItem("positions");
+    if (stored) {
+      commit("setPositions", JSON.parse(stored));
+    }
+  },
+};
 
 const mutations = {
-  setPosition(state, payload) {
-    state.position = payload;
+  setPositions(state, positions) {
+    state.positions = positions;
+  },
+  addPosition(state, newPosition) {
+    state.positions.push(newPosition);
+  },
+  deletePosition(state, slug) {
+    state.positions = state.positions.filter(
+      (position) => position.slug !== slug
+    );
   },
 };
 
