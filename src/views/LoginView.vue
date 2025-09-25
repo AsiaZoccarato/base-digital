@@ -1,9 +1,10 @@
+<!-- Sezione Area riservata, con login (email e passwors) e gestione errori di inserimento-->
 <template>
   <div class="login-page">
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <!-- Card di Login -->
+          <!-- Card di Login: componente v-card di Vuetify per il contenitore del form-->
           <v-card class="pa-6" elevation="8">
             <v-card-title class="text-center mb-4">
               <h2 class="text-primary">{{ isRegistering ? 'Registrati' : 'Accedi' }}</h2>
@@ -11,10 +12,10 @@
             </v-card-title>
 
             <v-card-text>
-              <!-- Form di Login/Registrazione -->
+              <!-- Form di Login/Registrazione. Componente v-form con validazione automatica (Vuetify) -->
               <v-form ref="form" v-model="valid" @submit.prevent="handleSubmit">
                 
-                <!-- Nome (solo per registrazione) -->
+                <!-- Nome (solo per registrazione). Componente v-text-field per campi con regole (Vuetify) -->
                 <v-text-field
                   v-if="isRegistering"
                   v-model="form.nome"
@@ -49,41 +50,35 @@
                   class="mb-4"
                 ></v-text-field>
 
-                <!-- Pulsante Submit -->
-                <v-btn
-                  type="submit"
+                <!-- Pulsante Submit (Bootstrap) -->
+                <button 
+                  type="submit" 
                   :disabled="!valid || loading"
-                  :loading="loading"
-                  color="primary"
-                  size="large"
-                  block
-                  class="mb-3"
+                  class="btn btn-primary btn-lg w-100 mb-3"
                 >
+                   <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
                   {{ isRegistering ? 'Registrati' : 'Accedi' }}
-                </v-btn>
+                </button>
 
-                <!-- Alert per errori -->
-                <v-alert
-                  v-if="error"
-                  type="error"
-                  variant="tonal"
-                  class="mb-3"
-                >
+                <!-- Alert per errori (Bootstrap)-->
+                <div v-if="error" class="alert alert-danger alert-dismissible mb-3" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill me-2"></i>
                   {{ error }}
-                </v-alert>
+                  <button type="button" class="btn-close" @click="error = ''"></button>
+                </div>
 
-                <!-- Switch tra Login e Registrazione -->
+                <!-- Switch tra Login e Registrazione (Bootstrap)-->
                 <div class="text-center">
                   <p class="text-muted mb-2">
                     {{ isRegistering ? 'Hai già un account?' : 'Non hai un account?' }}
                   </p>
-                  <v-btn
-                    variant="text"
-                    color="primary"
+                  <button
+                    type="button"
+                    class="btn btn-link text-decoration-none p-0"
                     @click="toggleMode"
                   >
                     {{ isRegistering ? 'Accedi qui' : 'Registrati qui' }}
-                  </v-btn>
+                  </button>
                 </div>
               </v-form>
             </v-card-text>
@@ -158,27 +153,27 @@ export default {
       }
     },
 
+      // Simulazione registrazione: in realtà salviamo tutto nel localStorage
     async register() {
-      // Simulazione registrazione (sostituisci con API reale)
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      // Salva utente nel localStorage (temporaneo)
+      // prendiamo la lista di utenti presente nel localStorage. getItem legge i dati. JSON.parse() converte il testo in oggetto JS
       const users = JSON.parse(localStorage.getItem('users') || '[]')
       
-      // Controlla se email già esistente
+      // Controlliamo se email già esistente
       if (users.find(u => u.email === this.form.email)) {
         throw new Error('Email già registrata')
       }
       
-      // Aggiungi nuovo utente
+      // Aggiungiamo nuovo utente (nel localStorage)
       const newUser = {
         id: Date.now(),
         nome: this.form.nome,
         email: this.form.email,
-        password: this.form.password, // In produzione: hash la password!
+        password: this.form.password,
         appuntamenti: []
       }
-      
+      // Salviamo nuovo utente (nel localStorage). SetItem salva i dati. JSON.stringify converte oggetto in testo
       users.push(newUser)
       localStorage.setItem('users', JSON.stringify(users))
       
@@ -187,7 +182,7 @@ export default {
     },
 
     async login() {
-      // Simulazione login (sostituisci con API reale)
+      // Simulazione login (cerca l'utente nel localStorage)
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       const users = JSON.parse(localStorage.getItem('users') || '[]')
@@ -204,7 +199,7 @@ export default {
     },
 
     loginUser(user) {
-      // Salva sessione utente
+      // Se trova l'utente nel localStorage lo ricordiamo come utente corrente
       localStorage.setItem('currentUser', JSON.stringify(user))
       
       // Reindirizza alla dashboard

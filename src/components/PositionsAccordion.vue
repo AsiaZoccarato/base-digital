@@ -5,18 +5,18 @@
         <button
           class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
-          :data-bs-target="`#collapse-${index}`"
-          aria-expanded="false"
+          @click="toggleAccordion(index)"
+          :class="{ collapsed: !isOpen[index] }"
+          aria-expanded="isOpen[index]"
           :aria-controls="`collapse-${index}`"
         >
           {{ entry.seniority }} {{ entry.title }}
         </button>
       </h2>
-      
        <div
         :id="`collapse-${index}`"
         class="accordion-collapse collapse"
+        :class="{ show: isOpen[index] }"
         :aria-labelledby="`heading-${index}`"
         data-bs-parent="#positionsAccordion">
         <div class="accordion-body">
@@ -26,8 +26,11 @@
               <dd class="col-sm-8">{{ entry[key] }}</dd>
             </template>
           </dl>
-          <button class="btn btn-primary mt-3" @click="goToPosition(entry.slug)">
+          <button class="btn btn-primary mt-3 mr-5" @click="goToPosition(entry.slug)">
             Visualizza Dettagli
+          </button>
+           <button class="btn btn-primary mt-3" @click="deletePosition(entry.slug)">
+            Cancella Posizione
           </button>
         </div>
       </div>
@@ -46,9 +49,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 
 const router = useRouter();
+const store = useStore();
 
 const props = defineProps({
   data: Array,
@@ -59,11 +64,6 @@ const props = defineProps({
   filterArea: String, 
   filterSeniority: String,
 });
-
-const sortKey = ref('');
-const sortOrders = ref(
-  props.columns.reduce((o, key) => ((o[key] = 1), o), {})
-);
 
 const filteredData = computed(() => {
   let { data, filterPosition, filterCity, filterArea, filterSeniority } = props
@@ -94,24 +94,19 @@ const filteredData = computed(() => {
         return String(row['seniority']).toLowerCase().indexOf(filterSeniority) > -1;
     })
   }
-  const key = sortKey.value
-  if (key) {
-    const order = sortOrders.value[key]
-    data = data.slice().sort((a, b) => {
-      a = a[key]
-      b = b[key]
-      return (a === b ? 0 : a > b ? 1 : -1) * order
-    })
-  }
   return data
 })
 
-function sortBy(key) {
-  sortKey.value = key
-  sortOrders.value[key] *= -1
+const isOpen = ref({});
+function toggleAccordion(index) {
+  isOpen.value[index] = !isOpen.value[index];
 }
 
 function goToPosition(slug) {
   router.push(`/positions/${slug}`)
+}
+
+function deletePosition(slug) {
+    store.dispatch('position/deletePositionAndPersist', slug, { root: true });
 }
 </script>

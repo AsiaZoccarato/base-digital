@@ -1,15 +1,13 @@
+<!-- Dashboard interna all'area riservata in cui l'utente può prenotare un appuntamento e vedere quelli già prenotati-->
 <template>
   <div class="dashboard-page">
-    <!-- Header Dashboard -->
+    <!-- Header Dashboard: v-app-bar è un componente Vuetify-->
     <v-app-bar color="primary" dark>
       <v-app-bar-title>
         <v-icon class="me-2">mdi-view-dashboard</v-icon>
         Dashboard - {{ user.nome }}
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="logout">
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <div class="container py-5">
@@ -23,12 +21,20 @@
               </v-avatar>
               <h4>{{ user.nome }}</h4>
               <p class="text-muted">{{ user.email }}</p>
-              <v-chip color="success" variant="tonal">
-                <v-icon start>mdi-check-circle</v-icon>
+              <!--Bootstrap per il badge-->
+              <span class="badge bg-success-subtle text-success">
+                <i class="bi bi-check-circle me-1"></i>
                 Account Attivo
-              </v-chip>
+              </span>
+
+               <!-- Bottone Logout (Bootstrap)-->
+              <button class="btn btn-outline-danger w-100 mt-2" @click="logout">
+                <i class="bi bi-box-arrow-right me-1"></i>
+                Esci
+              </button>
             </v-card-text>
           </v-card>
+
 
           <!-- Stats veloce -->
           <v-card elevation="4">
@@ -37,16 +43,16 @@
               Le tue statistiche
             </v-card-title>
             <v-card-text>
-              <div class="d-flex justify-space-between align-center mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <span>Appuntamenti totali:</span>
-                <v-chip color="primary">{{ user.appuntamenti?.length || 0 }}</v-chip>
+                <span class="badge bg-primary">{{ user.appuntamenti?.length || 0 }}</span>
               </div>
-              <div class="d-flex justify-space-between align-center">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <span>Prossimo appuntamento:</span>
-                <v-chip color="success" v-if="prossimoAppuntamento">
+                <span class="badge bg-success" v-if="prossimoAppuntamento">
                   {{ prossimoAppuntamento }}
-                </v-chip>
-                <v-chip color="grey" v-else>Nessuno</v-chip>
+                </span>
+                <span class="badge bg-secondary" v-else>Nessuno</span>
               </div>
             </v-card-text>
           </v-card>
@@ -69,6 +75,7 @@
                       <v-icon class="me-1">mdi-calendar</v-icon>
                       Seleziona Data
                     </label>
+                    <!-- v-date-picker è il componente Vuetify per scegliere la data -->
                     <v-date-picker
                       v-model="booking.data"
                       :min="today"
@@ -85,6 +92,7 @@
                       <v-icon class="me-1">mdi-clock</v-icon>
                       Seleziona Orario
                     </label>
+                    <!-- v-time-picker è il componente Vuetify per scegliere l'ora (mezz'ore)-->
                     <v-time-picker
                       v-model="booking.ora"
                       :allowed-hours="allowedHours"
@@ -97,7 +105,7 @@
                   </div>
                 </div>
 
-                <!-- Tipo di servizio -->
+                <!-- Tipo di servizio. v-select = dropdown dei servizi (Vuetufy) -->
                 <v-select
                   v-model="booking.servizio"
                   :items="servizi"
@@ -147,6 +155,7 @@
                 :items-per-page="5"
                 class="elevation-1"
               >
+                <!-- v-chip è il componente Vuetify per le etichette colore (errore/confermato) -->
                 <template #item.data="{ item }">
                   <v-chip color="primary" variant="tonal">
                     {{ formatData(item.data) }}
@@ -208,12 +217,12 @@ export default {
         note: ''
       },
       servizi: [
-        'Consulenza Digital Marketing',
-        'Sviluppo Sito Web',
-        'Gestione Social Media',
-        'E-commerce Setup',
-        'SEO Audit',
-        'Formazione Team'
+        'Social Media Marketing',
+        'Web Marketing',
+        'E-commerce',
+        'Branding & Identità',
+        'Content Creation',
+        'Data & Analytics'
       ],
       headers: [
         { title: 'Data', key: 'data', sortable: true },
@@ -239,14 +248,15 @@ export default {
    mounted() {
     this.loadUser()
   },
+  // loadUser legge chi è loggato dal localStorage
   methods: {
     loadUser() {
       const currentUser = localStorage.getItem('currentUser')
       if (!currentUser) {
-        this.$router.push('/login')
+        this.$router.push('/login') // se non c'è nel localStorage, torna al login
         return
       }
-      this.user = JSON.parse(currentUser)
+      this.user = JSON.parse(currentUser) //altrimenti carica i suoi dati
     },
 
     allowedHours(hour) {
@@ -308,10 +318,10 @@ export default {
     },
 
     updateUserInStorage() {
-      // Aggiorna currentUser
+      // Aggiorna l'appuntamento del currentUser
       localStorage.setItem('currentUser', JSON.stringify(this.user))
       
-      // Aggiorna anche nella lista users
+      // Aggiorna l'appuntamento anche nella lista users
       const users = JSON.parse(localStorage.getItem('users') || '[]')
       const index = users.findIndex(u => u.id === this.user.id)
       if (index !== -1) {
