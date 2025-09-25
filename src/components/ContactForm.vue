@@ -33,7 +33,7 @@
       <!--intestazione + contatore live-->
       <label class="form-label d-flex justify-content-between">
         <span>Messaggio</span>
-        <small class="text-muted">{{ form.message.length }}/500</small>
+        <small class="text-muted">{{ form.message.length }}/500</small> <!--esempio di string interpolation-->
       </label>
       <!--textarea vincolata a 500 char; classi dinamiche; rows= 4-->
       <textarea v-model="form.message" class="form-control" :class="v('message')" rows="4" maxlength="500" required />
