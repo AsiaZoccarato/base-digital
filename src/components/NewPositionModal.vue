@@ -1,41 +1,73 @@
 <template>
   <v-dialog v-model="dialogVisible" max-width="600">
-    <v-card>
-      <v-card-title class="headline">Aggiungi nuova posizione</v-card-title>
-      <v-card-text>
+    <v-card
+      class="mx-auto px-6 py-6"
+      max-width="344"
+      title="Aggiungi posizione"
+    >
+      <v-form>
         <v-text-field
           v-model="form.title"
           label="Titolo"
-          required
+          :rules="[rules.required]"
+          color="primary"
+          clearable
           placeholder="Inserisci il titolo della posizione"
         />
         <v-text-field
           v-model="form.city"
           label="Città"
-          required
+          :rules="[rules.required]"
+          color="primary"
+          clearable
           placeholder="Inserisci la città"
         />
         <v-text-field
           v-model="form.area"
           label="Area"
+          color="primary"
+          clearable
           placeholder="Inserisci il dipartimento"
         />
-        <v-text-field
+        <v-select
           v-model="form.seniority"
-          label="Seniority"
+          label="Livello"
+          :items="seniorityOptions"
+          color="primary"
+          clearable
           placeholder="Inserisci il livello di seniority"
-        />
+        ></v-select>
         <v-textarea
           v-model="form.description"
           label="Descrizione"
+          color="primary"
+          clearable
           placeholder="Descrivi la posizione"
         />
-      </v-card-text>
-      <v-card-actions>
+
         <v-spacer></v-spacer>
-        <v-btn text @click="close">Annulla</v-btn>
-        <v-btn color="primary" text @click="submit">Salva</v-btn>
-      </v-card-actions>
+        <v-btn
+          color="primary"
+          text
+          @click="submit"
+          class="text-none mb-4"
+          size="large"
+          variant="flat"
+          block
+        >
+          Salva la posizione</v-btn
+        >
+        <v-btn
+          text
+          @click="close"
+          class="text-none"
+          color="grey-lighten-3"
+          size="large"
+          variant="flat"
+          block
+          >Cancella</v-btn
+        >
+      </v-form>
     </v-card>
   </v-dialog>
 </template>
@@ -48,6 +80,10 @@ const props = defineProps({
   show: Boolean,
 });
 
+const rules = {
+  required: (value) => !!value || "Campo obbligatorio",
+};
+
 const emit = defineEmits(["update:show"]);
 
 const dialogVisible = computed({
@@ -56,6 +92,15 @@ const dialogVisible = computed({
 });
 
 const store = useStore();
+
+const positions = computed(() => {
+  return store.getters["position/getAllPositions"];
+});
+
+const seniorityOptions = computed(() => {
+  const allLevels = positions.value.map((p) => p.seniority).filter(Boolean);
+  return [...new Set(allLevels)];
+});
 
 const form = ref({
   title: "",
