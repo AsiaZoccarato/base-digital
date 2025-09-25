@@ -6,7 +6,7 @@
       <!-- Grid Bootstrap per le news -->
       <div class="row g-4">
         <div v-for="articolo in news" :key="articolo.id" class="col-12 col-md-6 col-lg-4">
-          <!-- Card delle news con Vuetify -->
+          <!-- Card delle news con Vuetify (libreria esterna, usiamo il template Giraffe, basatu su questa libreria)-->
           <v-card class="h-100" elevation="2">
             <v-card-text class="pb-0">
               <h2 class="h5 fw-bold text-primary mb-3 fst-italic">
