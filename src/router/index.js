@@ -57,8 +57,15 @@ const routes = [
   name: 'Dashboard',
   component: () => import('@/views/DashboardView.vue'),
   meta: { requiresAuth: true } // Richiede login
-}
+  },
   //rotta per la dashboard interna all'area di login
+
+  {
+  path: '/shop',
+  name: 'Shop',
+  component: () => import('@/views/ShopView.vue') // il componente che mostrerà la pagina Shop
+  }
+
 
 ];
 
