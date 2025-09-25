@@ -1,10 +1,9 @@
 <template>
-     <!--introduzione breve per spiegare chi è base digital
-     sezione contenitore con margine verticale my 5 -->
+     <!--introduzione breve per spiegare chi è base digital-->
   <section class="container my-5">
-    <!--griglia boostrap: gutter 4 e allineamento verticale al centro-->
+    <!--griglia boostrap-->
     <div class="row g-4 align-items-center">
-        <!--colonne testo: a tutta larghezza su mobile, metà su >=lg -->
+        <!--colonne testo -->
       <div class="col-12 col-lg-6">
         <!--titolo con stile h3 di boostrap-->
         <h2 class="h3 mb-3">Chi è Base Digital (in breve)</h2>
@@ -20,7 +19,7 @@
           <li>Processi trasparenti e collaborazione continua.</li>
         </ul>
       </div>
-      <!--colonna media con video responsive 16:9 con bordi arrotoonati-->
+      <!--colonna media con video responsive 16:9 con bordi arrotondati-->
       <div class="col-12 col-lg-6">
         <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm">
           <!--ratio ratio 16x9 è un utility di boostrap e serve per mantenere i 16:9 del video anche se la finestra 

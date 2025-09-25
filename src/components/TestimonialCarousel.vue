@@ -9,7 +9,6 @@
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
           <!--carosello nativo di boostrap
-          parte da solo
           cambia slide ogni 5 secondi
           consente swipe su mobile touch true -->
           <div
@@ -23,7 +22,7 @@
               <!--slide generate con v-for
               creo le slide leggendo i dati dall'array testi
               la prima i === 0 viene marcata come active, altrimenti il carousel non parte
-              dentro ogni slide abbiamo la card con la citazione t.quote, l'autore t.author, ruolo t.role-->
+              -->
               <div v-for="(t,i) in testi" :key="i" class="carousel-item" :class="{ active: i===0 }">
                 <div class="card border-0 shadow-sm text-center">
                   <div class="card-body px-4 py-4">
@@ -34,8 +33,7 @@
               </div>
             </div>
 
-            <!-- frecce dx e sx
-             ho aggiunto la classe crtl-dark per scurirle dato che di default boostrap le metteva bianche  -->
+            <!-- frecce dx e sx  -->
             <button class="carousel-control-prev ctrl-dark" type="button" data-bs-target="#testiCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Precedente</span>

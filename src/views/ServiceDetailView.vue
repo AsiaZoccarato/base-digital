@@ -3,8 +3,10 @@
    legge slug dal router, recupera il servizio dallo store e renderizza immagine, titolo, testo ecc. -->
   <div class="container py-4" v-if="service">
     <div class="row g-4">
+
       <!-- colonna immagine -->
       <div class="col-12 col-lg-6">
+
 <!-- immagine principale LAYOUT CON BOOSTRAP CHE SFRUTTA GIA' CLASSI RESPONSIVE -->
 <img :src="service.img" class="img-fluid rounded shadow-sm mb-3" alt="principale" />
 
@@ -37,7 +39,7 @@
           </ul>
         </div>
 
-        <!-- deliverables (opzionale): consegne tangibili -->
+        <!-- deliverables: consegne tangibili -->
         <div v-if="service.deliverables?.length" class="mb-3">
           <h2 class="h6 mb-2">Deliverable</h2>
           <ul class="list-unstyled mb-0">
@@ -58,7 +60,7 @@
           </span>
         </div>
 
-        <!-- prezzo (testo libero) -->
+        <!-- prezzo -->
         <div v-if="service.price" class="alert alert-info py-2">
           <strong>Prezzo:</strong> {{ service.price }}
         </div>
@@ -95,7 +97,7 @@
     </section>
   </div>
 
-  <!-- altrimenti mostro un messaggio d'errore gentile -->
+  <!-- altrimenti mostro un messaggio d'errore -->
   <div v-else class="container py-4">
     <p>Servizio non trovato.</p>
     <RouterLink class="btn btn-outline-secondary mt-3" to="/servizi">
@@ -114,35 +116,26 @@ const store = useStore()
 // leggo la route corrente
 const route = useRoute()
 
-// computed service:
-// prende lo slug dalla URL (es. /servizi/social → "social")
+
 // usa il getter getService dello store per restituire il servizio corrispondente
 // se non lo trova, restituisce undefined → attiva il v-else nel template
 const service = computed(() => store.getters.getService(route.params.slug))
 
 // computed imageSrc
 // prova a risolvere l'immagine in modo robusto:
-// - se service o service.img non esistono → null (e quindi non mostra l'img)
-// - se inizia con "http" → la usa così com'è
-// - se inizia con "/" → si assume che il file sia in /public (es. /immagini/xxx.jpg)
-// - altrimenti mostra un placeholder (evita <img> rotte)
+
+
+
+
 const imageSrc = computed(() => {
-  if (!service.value || !service.value.img) return null
+  if (!service.value || !service.value.img) return null //se service o service.img non esistono → null
   const src = service.value.img
-  if (/^https?:\/\//i.test(src)) return src
-  if (src.startsWith('/')) return src
-  return 'https://dummyimage.com/800x450/eeeeee/aaaaaa&text=Immagine+non+disponibile'
+  if (/^https?:\/\//i.test(src)) return src // se inizia con "http" → la usa così com'è
+  if (src.startsWith('/')) return src //se inizia con "/" → si assume che il file sia in /public
+  return 'https://dummyimage.com/800x450/eeeeee/aaaaaa&text=Immagine+non+disponibile' //// - altrimenti mostra un placeholder (evita <img> rotte)
 })
 
-// relatedItems: mappa gli slug in oggetti servizio reali (se esistono)
-// consente di mostrare titolo/desc/img dei correlati
-//nello store vuex ogni servizio ha un campo related con un array di slug di altri servizi
-//nel servicedetail c'è questa parte di script che se il servizio corrente non ha related, 
-//restituisce un array vuoto e non mostra nulla
-//se invece ha degli slug, fa un map: prende ogni slug e lo passa al getter getservice dallo store
-//che restituisce l'oggetto completo del servizio corrispondente 
-//filter boolean serve a scartare eventuali valori null 
-//nel template mostra i related con un ciclo vfor e mostra le card dei servizi corelati
+
 const relatedItems = computed(() => {
   if (!service.value?.related?.length) return []
   return service.value.related
