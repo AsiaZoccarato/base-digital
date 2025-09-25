@@ -21,18 +21,18 @@ const routes = [
   { path: "/servizi", name: "services", component: ServicesView }, //lista di servizi
 
   {
-    path: "/servizi/:slug", //slug = parametro dinamico nell'url es. /servizi/seo
-    name: "service-detail", //nome rottaa per push/routerlink by name 
+    path: "/servizi/:slug", 
+    name: "service-detail", 
     component: ServiceDetailView, //vista di dettaglio servizio 
     props: true, //passa i parametri di rotta (slug ) come prop al component
   },
 
   { path: "/clienti", name: "clienti", component: () => import("@/views/Client.vue") }, 
-  // pagina placeholder caricata in lazy si potrà poi togliere alla fine 
+  
   { path: "/contatti", component: () => import("@/views/ContactView.vue") },
-  //pagina contatti in lazy loading, quindi caricata quando serve 
+ 
 
-  { //altra pagina chi siamo caricata in lazy loading 
+  { //abaoutview
     path: "/about",
     name: "About",
     component: () => import("@/views/AboutView.vue"),
@@ -42,7 +42,7 @@ const routes = [
 //rotta per la pagina news con import dinamico 
 
   { path: "/positions", name: "positions", component: PositionsView },
-//lista poosizioni con import statico 
+//lista posizioni con import statico 
 
 
   {
@@ -81,7 +81,6 @@ const router = createRouter({
   routes, //registro l'array di rotte 
   
   
-
   //forza lo scroll in alto quando cambi pagina
   scrollBehavior(to, from, savedPosition) {
     // se usi i bottoni del browser torna alla posizione salvata 
@@ -101,9 +100,4 @@ const router = createRouter({
 
 export default router;
 
-//COME FUNZIONA UNA ROTTA IN VUE ROUTER
-//Ogni riga del routes array ha 3 concetti chiave:
-// 1. path che è l'URL che l'utente digita o clicca (es. /servizi) e questo è quello che vedi nella barra el browser
-// 2. name, facoltativo ma utile, è un alias interno che diamo alla rotta.
-// possiamo usarlo nei router link o con router.push (name); non influisce sull'URL ma serve solo in fase di sviluppo
-// 3. Component è il file vue che vue router deve mostrare quando l'utente visita quella rotta.
+
