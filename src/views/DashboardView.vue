@@ -1,4 +1,4 @@
-<!-- Dashboard interna all'area riservata in cui l'utente può prenotare un appuntamento e vedere quelli già prenotati-->
+<!-- Dashboard interna all'area riservata in cui l'utente può prenotare un appuntamento e vedere quelli già prenotati (creata con libreria esterna Vuetify)-->
 <template>
   <div class="dashboard-page">
     <!-- Header Dashboard: v-app-bar è un componente Vuetify-->
@@ -36,7 +36,7 @@
           </v-card>
 
 
-          <!-- Stats veloce -->
+          <!-- Statistiche -->
           <v-card elevation="4">
             <v-card-title>
               <v-icon class="me-2">mdi-chart-line</v-icon>

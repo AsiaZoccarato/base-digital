@@ -1,4 +1,4 @@
-<!-- Sezione Area riservata, con login (email e passwors) e gestione errori di inserimento-->
+<!-- Sezione Area riservata, con login (email e password) e gestione errori di inserimento (strutturata con la libreria esterna Vuetify)-->
 <template>
   <div class="login-page">
     <div class="container py-5">
@@ -15,7 +15,7 @@
               <!-- Form di Login/Registrazione. Componente v-form con validazione automatica (Vuetify) -->
               <v-form ref="form" v-model="valid" @submit.prevent="handleSubmit">
                 
-                <!-- Nome (solo per registrazione). Componente v-text-field per campi con regole (Vuetify) -->
+                <!-- Nome (serve solo per la registrazione). Componente v-text-field per campi con regole (Vuetify) -->
                 <v-text-field
                   v-if="isRegistering"
                   v-model="form.nome"

@@ -6,7 +6,7 @@
       <!-- Grid Bootstrap per le news -->
       <div class="row g-4">
         <div v-for="articolo in news" :key="articolo.id" class="col-12 col-md-6 col-lg-4">
-          <!-- Card delle news con Vuetify -->
+          <!-- Card delle news con Vuetify (libreria esterna, usiamo il template Giraffe, basatu su questa libreria)-->
           <v-card class="h-100" elevation="2">
             <v-card-text class="pb-0">
               <h2 class="h5 fw-bold text-primary mb-3 fst-italic">
@@ -38,16 +38,17 @@
         
         <!-- Video Section -->
         <div class="text-center mb-5">
+        <div class="ratio ratio-16x9" style="max-width: 640px; margin: 0 auto;">
           <video
               controls
               poster="/immagini/copertinayoutube.jpg"
               muted
-              class="img-fluid rounded"
-              style="max-width: 640px;" 
+              class="rounded"
           >
             <source src="/video/video.mp4" type="video/mp4">
             Il tuo browser non supporta il tag video.
           </video>
+        </div>
         </div>
 
         <!-- Post Grid -->
