@@ -86,8 +86,8 @@
     </h4>
   </div>
 
-  <div v-else="filteredData.length" class="card mt-3">
-    <h4 class="card-text w-75 m-2">Posizioni trovate : 0</h4>
+  <div v-else class="card mt-3">
+    <h4 class="card-text w-75 m-2">Nessuna Posizione trovata</h4>
   </div>
 </template>
 
